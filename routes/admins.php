@@ -21,26 +21,26 @@ Route::middleware('auth:admins')->group(function () {
 
     //Colors
     Route::prefix('colors')->as('colors.')->group(function () {
+        Route::get('all',[\App\Http\Controllers\Admins\Colors\ColorController::class, 'all'])->name('all');
         Route::get('{color}/activation',[\App\Http\Controllers\Admins\Colors\ColorController::class, 'activation'])->name('activation');
     });
-
-    Route::apiResource('colors',\App\Http\Controllers\Admins\Colors\ColorController::class);
-
-    //Colors
-    Route::prefix('colors')->as('colors.')->group(function () {
-        Route::get('{color}/activation',[\App\Http\Controllers\Admins\Colors\ColorController::class, 'activation'])->name('activation');
-    });
-
     Route::apiResource('colors',\App\Http\Controllers\Admins\Colors\ColorController::class);
 
     //Options
     Route::prefix('options')->as('options.')->group(function () {
+        Route::get('all',[\App\Http\Controllers\Admins\Options\OptionController::class, 'all'])->name('all');
         Route::get('{option}/activation',[\App\Http\Controllers\Admins\Options\OptionController::class, 'activation'])->name('activation');
     });
 
     Route::apiResource('options',\App\Http\Controllers\Admins\Options\OptionController::class);
 
 
+    //Questions
+    Route::prefix('questions')->as('questions.')->group(function () {
+        Route::get('{question}/activation',[\App\Http\Controllers\Admins\Questions\QuestionController::class, 'activation'])->name('activation');
+    });
+
+    Route::apiResource('questions',\App\Http\Controllers\Admins\Questions\QuestionController::class);
 
 
 

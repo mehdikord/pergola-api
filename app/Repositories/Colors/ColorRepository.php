@@ -2,6 +2,7 @@
 namespace App\Repositories\Colors;
 
 use App\Http\Resources\Colors\ColorIndexResource;
+use App\Http\Resources\Colors\ColorShortResource;
 use App\Interfaces\Colors\ColorInterface;
 use App\Models\Color;
 
@@ -15,7 +16,15 @@ class ColorRepository implements ColorInterface
        return helper_response_fetch(ColorIndexResource::collection($data->paginate(request('per_page')))->resource);
    }
 
-   public function store($request)
+    public function all()
+    {
+        $data = Color::query();
+        $data->orderByDesc('id');
+        return helper_response_fetch(ColorShortResource::collection($data->get()));
+    }
+
+
+    public function store($request)
    {
        $data = Color::create([
            'name' => $request->name,

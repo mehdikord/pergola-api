@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Interfaces\Colors;
+namespace App\Interfaces\Questions;
 
-interface ColorInterface
+interface QuestionInterface
 {
     public function index();
-
-    public function all();
 
     public function store($request);
 

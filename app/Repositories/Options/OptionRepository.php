@@ -15,6 +15,13 @@ class OptionRepository implements OptionInterface
        return helper_response_fetch(OptionIndexResource::collection($data->paginate(request('per_page')))->resource);
    }
 
+    public function all()
+    {
+        $data = Option::query();
+        $data->orderByDesc('id');
+        return helper_response_fetch(OptionIndexResource::collection($data->get()));
+    }
+
    public function store($request)
    {
        $data = Option::create([
@@ -44,9 +51,19 @@ class OptionRepository implements OptionInterface
    {
        $data = $item->update([
            'name' => $request->name,
-           'color' => $request->color,
-           'description' => $request->description,
+           'unit' => $request->unit,
+           'guid' => $request->guid,
+           'description' => $request->description
        ]);
+       if (is_array($request->items)){
+           $item->items()->delete();
+           foreach ($request->items as $get_item){
+               $item->items()->create([
+                   'item' => $get_item['value'],
+               ]);
+           }
+       }
+       $item->load('items');
        return helper_response_fetch(new OptionIndexResource($item));
    }
 

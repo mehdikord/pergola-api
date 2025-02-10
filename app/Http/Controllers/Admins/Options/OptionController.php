@@ -27,6 +27,11 @@ class OptionController extends Controller
         return $this->repository->index();
     }
 
+    public function all()
+    {
+        return $this->repository->all();
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -38,7 +43,7 @@ class OptionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Color $option)
+    public function show(Option $option)
     {
         return $this->repository->show($option);
     }
