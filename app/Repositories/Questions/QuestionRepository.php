@@ -17,10 +17,14 @@ class QuestionRepository implements QuestionInterface
 
    public function store($request)
    {
+       $items = null;
+       if (is_array($request->items)) {
+           $items = json_encode($request->items, JSON_THROW_ON_ERROR);
+       }
        $data = Question::create([
            'from_color_id' => $request->from_color_id,
            'to_color_id' => $request->to_color_id,
-           'items' => json_decode($request->items, false, 512, JSON_THROW_ON_ERROR),
+           'items' => $items,
            'is_active' => true
        ]);
        if (is_array($request->answers)) {

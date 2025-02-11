@@ -20,7 +20,7 @@ class QuestionsCreateRequest extends FormRequest
         return [
             'from_color_id' => 'required|integer|exists:colors,id',
             'to_color_id' => 'required|integer|exists:colors,id',
-            'is_special' => 'required|boolean',
+            'answers' => 'required',
         ];
     }
 
