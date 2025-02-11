@@ -42,6 +42,13 @@ Route::middleware('auth:admins')->group(function () {
 
     Route::apiResource('questions',\App\Http\Controllers\Admins\Questions\QuestionController::class);
 
+    //Plans
+    Route::prefix('plans')->as('plans.')->group(function () {
+        Route::get('{plan}/activation',[\App\Http\Controllers\Admins\Plans\PlanController::class, 'activation'])->name('activation');
+    });
+
+    Route::apiResource('plans',\App\Http\Controllers\Admins\Plans\PlanController::class);
+
 
 
 
