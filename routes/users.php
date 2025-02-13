@@ -21,5 +21,12 @@ Route::group(['middleware' => ['auth:users']], function () {
 
     });
 
+    //Plans
+    Route::prefix('plans')->as('plans.')->group(function () {
+       Route::get('active',[\App\Http\Controllers\Users\Plans\PlanController::class,'active'])->name('active');
+
+
+    });
+
 
 });

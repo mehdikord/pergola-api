@@ -17,5 +17,9 @@ interface PlanInterface
     public function destroy($item);
 
     public function change_activation($item);
+    
+    //Users Functions
+
+    public function users_active();
 
 }

@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::get('colors',[\App\Http\Controllers\Public\PublicColorController::class,'colors'])->name('colors');
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('options',[\App\Http\Controllers\Public\PublicColorController::class,'options'])->name('options');

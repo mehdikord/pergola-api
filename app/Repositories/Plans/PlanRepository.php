@@ -5,6 +5,7 @@ use App\Http\Resources\Plans\PlanIndexResource;
 use App\Http\Resources\Plans\PlanShortResource;
 use App\Interfaces\Plans\PlanInterface;
 use App\Models\Plan;
+use App\Models\User_Plan;
 
 class PlanRepository implements PlanInterface
 {
@@ -64,6 +65,12 @@ class PlanRepository implements PlanInterface
    {
        $item->update(['is_active' => !$item->is_active]);
        return helper_response_updated([]);
+   }
+
+   public function users_active()
+   {
+       $active = auth('users')->user()->plans()->where('status',User_Plan::STATUS_ACTIVE)->first();
+       return helper_response_fetch($active);
    }
 
 
