@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Resources\Profile;
+namespace App\Http\Resources\Users;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -12,7 +13,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $profile
  * @property mixed $config
  */
-class UserProfileResource extends JsonResource
+class UserPlanActiveResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,14 +22,17 @@ class UserProfileResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $days = null;
+        if ($this->star_at && $this->end_at){
+            $start = Carbon::make($this->start_at);
+            $days = $start->diffInDays($this->end_at);
+        }
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'phone' => $this->phone,
-            'age' => $this->age,
-            'image' => $this->image,
-            'is_active' => $this->is_active,
-
+            'title' => $this->id,
+            'start_at' => $this->start_at,
+            'end_at' => $this->end_at,
+            'days' => $days
         ];
     }
 }

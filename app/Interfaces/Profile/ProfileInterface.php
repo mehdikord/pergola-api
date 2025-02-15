@@ -6,4 +6,6 @@ interface ProfileInterface
 {
     public function index();
 
+    public function update($request);
+
 }

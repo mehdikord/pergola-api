@@ -14,9 +14,13 @@ class PlanController extends Controller
     public function __construct(PlanInterface $plan){
         $this->repository = $plan;
     }
+
+    public function index()
+    {
+        return $this->repository->all();
+    }
     public function active()
     {
-
-
+        return $this->repository->users_active();
     }
 }

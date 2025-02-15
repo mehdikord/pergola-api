@@ -17,12 +17,14 @@ Route::group(['middleware' => ['auth:users']], function () {
     Route::prefix('profile')->as('profile.')->group(function () {
 
         Route::get('',[\App\Http\Controllers\Users\Profile\ProfileController::class,'index'])->name('index');
+        Route::put('',[\App\Http\Controllers\Users\Profile\ProfileController::class,'update'])->name('update');
 
 
     });
 
     //Plans
     Route::prefix('plans')->as('plans.')->group(function () {
+        Route::get('all',[\App\Http\Controllers\Users\Plans\PlanController::class,'index'])->name('index')->withoutMiddleware('auth:users');
        Route::get('active',[\App\Http\Controllers\Users\Plans\PlanController::class,'active'])->name('active');
 
 
