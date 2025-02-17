@@ -31,7 +31,6 @@ Route::middleware('auth:admins')->group(function () {
         Route::get('all',[\App\Http\Controllers\Admins\Options\OptionController::class, 'all'])->name('all');
         Route::get('{option}/activation',[\App\Http\Controllers\Admins\Options\OptionController::class, 'activation'])->name('activation');
     });
-
     Route::apiResource('options',\App\Http\Controllers\Admins\Options\OptionController::class);
 
 
@@ -46,12 +45,19 @@ Route::middleware('auth:admins')->group(function () {
     Route::prefix('plans')->as('plans.')->group(function () {
         Route::get('{plan}/activation',[\App\Http\Controllers\Admins\Plans\PlanController::class, 'activation'])->name('activation');
     });
-
     Route::apiResource('plans',\App\Http\Controllers\Admins\Plans\PlanController::class);
 
+    //Answers
+    Route::group(['prefix' => 'answers','as'=>'answers.'], function () {
+
+        Route::prefix('options')->as('options.')->group(function () {
+            Route::get('all',[\App\Http\Controllers\Admins\Answer_Options\AnswerOptionController::class, 'all'])->name('all');
+            Route::get('{option}/activation',[\App\Http\Controllers\Admins\Answer_Options\AnswerOptionController::class, 'activation'])->name('activation');
+        });
+        Route::apiResource('options',\App\Http\Controllers\Admins\Answer_Options\AnswerOptionController::class);
 
 
-
+    });
 
 });
 

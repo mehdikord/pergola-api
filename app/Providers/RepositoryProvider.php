@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Interfaces\Answer_Options\AnswerOptionInterface;
 use App\Interfaces\Auth\AuthInterface;
 use App\Interfaces\Colors\ColorInterface;
 use App\Interfaces\Options\OptionInterface;
@@ -9,6 +10,7 @@ use App\Interfaces\Plans\PlanInterface;
 use App\Interfaces\Profile\ProfileInterface;
 use App\Interfaces\Questions\QuestionInterface;
 use App\Interfaces\Users\UserInterface;
+use App\Repositories\Answer_Options\AnswerOptionRepository;
 use App\Repositories\Auth\AuthRepository;
 use App\Repositories\Colors\ColorRepository;
 use App\Repositories\Options\OptionRepository;
@@ -36,6 +38,8 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(QuestionInterface::class,QuestionRepository::class);
 
         $this->app->bind(PlanInterface::class,PlanRepository::class);
+
+        $this->app->bind(AnswerOptionInterface::class,AnswerOptionRepository::class);
 
     }
 
