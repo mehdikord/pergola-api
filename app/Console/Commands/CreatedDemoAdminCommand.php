@@ -26,7 +26,7 @@ class CreatedDemoAdminCommand extends Command
      */
     public function handle()
     {
-        Admin::query()->updateOrCreate(['email' => 'admin@regola.com'],['name' => 'Administrator','password' => \Hash::make(123456)]);
+        Admin::query()->updateOrCreate(['email' => 'admin@pergola.com'],['name' => 'Administrator','password' => \Hash::make(123456)]);
         $this->info('Demo admin account created');
     }
 }

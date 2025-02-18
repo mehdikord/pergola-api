@@ -29,9 +29,12 @@ class QuestionRepository implements QuestionInterface
        ]);
        if (is_array($request->answers)) {
            foreach ($request->answers as $answer) {
+               $get_answer = null;
+               if ($answer){
+                   $get_answer = json_encode($answer, JSON_THROW_ON_ERROR);
+               }
                $data->answers()->create([
-                   'answer' => $answer['answer'],
-                   'is_special' => $answer['is_special'],
+                   'answer' => $get_answer,
                ]);
            }
        }
