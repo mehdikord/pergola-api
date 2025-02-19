@@ -22,6 +22,7 @@ Route::middleware('auth:admins')->group(function () {
 
     //Colors
     Route::prefix('colors')->as('colors.')->group(function () {
+        Route::apiResource('groups',\App\Http\Controllers\Admins\Color_Groups\ColorGroupsController::class);
         Route::get('all',[\App\Http\Controllers\Admins\Colors\ColorController::class, 'all'])->name('all');
         Route::get('{color}/activation',[\App\Http\Controllers\Admins\Colors\ColorController::class, 'activation'])->name('activation');
     });

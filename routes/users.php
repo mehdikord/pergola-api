@@ -31,5 +31,14 @@ Route::group(['middleware' => ['auth:users']], function () {
 
     });
 
+    Route::prefix('services')->as('services.')->group(function () {
+       Route::prefix('coloring')->as('coloring.')->group(function () {
+           Route::post('',[\App\Http\Controllers\Users\Services\ColoringController::class,'coloring'])->name('coloring');
+       });
+
+
+
+    });
+
 
 });

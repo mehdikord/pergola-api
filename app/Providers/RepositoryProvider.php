@@ -9,6 +9,7 @@ use App\Interfaces\Options\OptionInterface;
 use App\Interfaces\Plans\PlanInterface;
 use App\Interfaces\Profile\ProfileInterface;
 use App\Interfaces\Questions\QuestionInterface;
+use App\Interfaces\Services\ServiceInterface;
 use App\Interfaces\Users\UserInterface;
 use App\Repositories\Answer_Options\AnswerOptionRepository;
 use App\Repositories\Auth\AuthRepository;
@@ -17,6 +18,7 @@ use App\Repositories\Options\OptionRepository;
 use App\Repositories\Plans\PlanRepository;
 use App\Repositories\Profile\ProfileRepository;
 use App\Repositories\Questions\QuestionRepository;
+use App\Repositories\Services\ServiceRepository;
 use App\Repositories\Users\UserRepository;
 use Carbon\Laravel\ServiceProvider;
 
@@ -40,6 +42,8 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(PlanInterface::class,PlanRepository::class);
 
         $this->app->bind(AnswerOptionInterface::class,AnswerOptionRepository::class);
+
+        $this->app->bind(ServiceInterface::class,ServiceRepository::class);
 
     }
 
