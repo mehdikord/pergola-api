@@ -21,6 +21,11 @@ class UserIndexResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $plan_status=0;
+        if (count($this->plans))
+        {
+            $plan_status=1;
+        }
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -28,6 +33,7 @@ class UserIndexResource extends JsonResource
             'age' => $this->age,
             'image' => $this->image,
             'is_active' => $this->is_active,
+            'plan_status' => $plan_status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

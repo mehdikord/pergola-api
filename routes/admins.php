@@ -15,6 +15,7 @@ Route::middleware('auth:admins')->group(function () {
 
     Route::prefix('users')->as('users.')->group(function () {
         Route::get('{user}/activation',[\App\Http\Controllers\Admins\Users\UserController::class, 'activation'])->name('activation');
+        Route::post('{user}/plans',[\App\Http\Controllers\Admins\Users\UserController::class, 'add_plan'])->name('add_plan');
     });
 
     Route::apiResource('users',\App\Http\Controllers\Admins\Users\UserController::class);
@@ -43,6 +44,8 @@ Route::middleware('auth:admins')->group(function () {
 
     //Plans
     Route::prefix('plans')->as('plans.')->group(function () {
+
+        Route::get('all',[\App\Http\Controllers\Admins\Plans\PlanController::class, 'all'])->name('all');
         Route::get('{plan}/activation',[\App\Http\Controllers\Admins\Plans\PlanController::class, 'activation'])->name('activation');
     });
     Route::apiResource('plans',\App\Http\Controllers\Admins\Plans\PlanController::class);

@@ -1,5 +1,6 @@
 <?php
 //All Users Routing
+use Illuminate\Support\Facades\Route;
 
 //Authenticate
 Route::prefix('auth')->as('auth.')->group(function () {

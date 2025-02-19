@@ -23,13 +23,13 @@ class UserPlanActiveResource extends JsonResource
     public function toArray(Request $request): array
     {
         $days = null;
-        if ($this->star_at && $this->end_at){
+        if ($this->start_at && $this->end_at){
             $start = Carbon::make($this->start_at);
             $days = $start->diffInDays($this->end_at);
         }
         return [
             'id' => $this->id,
-            'title' => $this->id,
+            'title' => $this->title,
             'start_at' => $this->start_at,
             'end_at' => $this->end_at,
             'days' => $days

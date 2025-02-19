@@ -15,5 +15,7 @@ interface UserInterface
     public function destroy($item);
 
     public function change_activation($item);
+    public function add_plan($request,$item);
+
 
 }

@@ -3,9 +3,11 @@ namespace App\Repositories\Plans;
 
 use App\Http\Resources\Plans\PlanIndexResource;
 use App\Http\Resources\Plans\PlanShortResource;
+use App\Http\Resources\Users\UserPlanActiveResource;
 use App\Interfaces\Plans\PlanInterface;
 use App\Models\Plan;
 use App\Models\User_Plan;
+use League\Flysystem\DecoratedAdapter;
 
 class PlanRepository implements PlanInterface
 {
@@ -20,6 +22,13 @@ class PlanRepository implements PlanInterface
     public function all()
     {
         $data = Plan::query();
+        $data->orderByDesc('id');
+        return helper_response_fetch(PlanShortResource::collection($data->get()));
+    }
+    public function users_all()
+    {
+        $data = Plan::query();
+        $data->where('is_active',1);
         $data->orderByDesc('id');
         return helper_response_fetch(PlanShortResource::collection($data->get()));
     }
@@ -70,7 +79,7 @@ class PlanRepository implements PlanInterface
    public function users_active()
    {
        $active = auth('users')->user()->plans()->where('status',User_Plan::STATUS_ACTIVE)->first();
-       return helper_response_fetch($active);
+       return helper_response_fetch(new UserPlanActiveResource($active));
    }
 
 

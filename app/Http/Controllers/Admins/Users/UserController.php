@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admins\Users;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\AdminUsersAddPlanRequest;
 use App\Http\Requests\Users\AdminUsersCreateRequest;
 use App\Http\Requests\Users\UserUpdateRequest;
 use App\Interfaces\Users\UserInterface;
@@ -61,6 +62,10 @@ class UserController extends Controller
     public function activation(User $user)
     {
         return $this->repository->change_activation($user);
+    }
 
+    public function add_plan(User $user,AdminUsersAddPlanRequest $request)
+    {
+        return $this->repository->add_plan($request,$user);
     }
 }

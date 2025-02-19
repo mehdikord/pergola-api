@@ -89,4 +89,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(User_Plan::class,'user_id');
     }
+
+    public function active_plan()
+    {
+        if ($this->plans()->count()) {
+            return $this->plans()->where('status',User_Plan::STATUS_ACTIVE);
+        }
+        return null;
+    }
 }

@@ -7,6 +7,7 @@ interface PlanInterface
     public function index();
 
     public function all();
+    public function users_all();
 
     public function store($request);
 
@@ -17,7 +18,7 @@ interface PlanInterface
     public function destroy($item);
 
     public function change_activation($item);
-    
+
     //Users Functions
 
     public function users_active();
