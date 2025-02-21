@@ -50,17 +50,27 @@ class QuestionRepository implements QuestionInterface
 
    public function update($request, $item)
    {
-       $data = $item->update([
+
+       $items = $item->items;
+       if (is_array($request->items)) {
+           $items = json_encode($request->items, JSON_THROW_ON_ERROR);
+       }
+
+
+        $item->update([
            'from_color_id' => $request->from_color_id,
            'to_color_id' => $request->to_color_id,
-           'items' => json_decode($request->items, false, 512, JSON_THROW_ON_ERROR),
+           'items' => $items,
        ]);
        if (is_array($request->answers)) {
            $item->answers()->delete();
            foreach ($request->answers as $answer) {
-               $data->answers()->create([
-                   'answer' => $answer['answer'],
-                   'is_special' => $answer['is_special'],
+               $get_answer = null;
+               if ($answer){
+                   $get_answer = json_encode($answer, JSON_THROW_ON_ERROR);
+               }
+               $item->answers()->create([
+                   'answer' => $get_answer,
                ]);
            }
        }

@@ -20,7 +20,6 @@ class QuestionsUpdateRequest extends FormRequest
         return [
             'from_color_id' => 'required|exists:colors,id',
             'to_color_id' => 'required|exists:colors,id',
-            'is_special' => 'required|boolean',
         ];
     }
 
