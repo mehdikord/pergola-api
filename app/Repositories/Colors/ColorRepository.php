@@ -5,6 +5,7 @@ use App\Http\Resources\Colors\ColorIndexResource;
 use App\Http\Resources\Colors\ColorShortResource;
 use App\Interfaces\Colors\ColorInterface;
 use App\Models\Color;
+use Illuminate\Support\Facades\Storage;
 
 class ColorRepository implements ColorInterface
 {
@@ -26,8 +27,15 @@ class ColorRepository implements ColorInterface
 
     public function store($request)
    {
+       $image = null;
+       if ($request->hasFile('image')) {
+           $path = $request->file('image')->store('attachments/colors/images', 'public');
+           $image = Storage::disk('public')->url($path);
+       }
        $data = Color::create([
+           'color_group_id' => $request->color_group_id,
            'name' => $request->name,
+           'image' => $image,
            'color' => $request->color,
            'description' => $request->description,
            'is_active' => true,
@@ -36,6 +44,21 @@ class ColorRepository implements ColorInterface
        return helper_response_fetch(new ColorIndexResource($data));
    }
 
+    public function update_image($request,$item)
+    {
+        $image = $item->color;
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('attachments/colors/images', 'public');
+            $image = Storage::disk('public')->url($path);
+        }else{
+            if ($image){
+                Storage::disk('public')->delete($image);
+            }
+            $image = null;
+        }
+        $item->update(['image' => $image]);
+        return helper_response_fetch(new ColorIndexResource($item));
+    }
    public function show($item)
    {
        return helper_response_fetch(new ColorIndexResource($item));
@@ -44,6 +67,7 @@ class ColorRepository implements ColorInterface
    public function update($request, $item)
    {
        $data = $item->update([
+           'color_group_id' => $request->color_group_id,
            'name' => $request->name,
            'color' => $request->color,
            'description' => $request->description,

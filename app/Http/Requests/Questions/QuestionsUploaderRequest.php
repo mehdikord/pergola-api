@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Colors;
+namespace App\Http\Requests\Questions;
 
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ColorsCreateRequest extends FormRequest
+class QuestionsUploaderRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -18,9 +18,7 @@ class ColorsCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:colors,name',
-            'image' => 'nullable|image',
-            'color' => 'required',
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 

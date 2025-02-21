@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admins\Color_Groups;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Colors\ColorsCreateRequest;
-use App\Http\Requests\Colors\ColorsUpdateRequest;
+use App\Http\Requests\Color_Groups\ColorGroupUpdateRequest;
+use App\Http\Requests\Color_Groups\ColorsGroupCreateRequest;
 use App\Interfaces\Color_Groups\ColorGroupInterface;
-use App\Interfaces\Colors\ColorInterface;
-use App\Models\Color;
+use App\Models\Color_Group;
 
 class ColorGroupsController extends Controller
 {
@@ -35,7 +34,7 @@ class ColorGroupsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ColorsCreateRequest $request)
+    public function store(ColorsGroupCreateRequest $request)
     {
         return $this->repository->store($request);
     }
@@ -43,25 +42,25 @@ class ColorGroupsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Color $color)
+    public function show(Color_Group $group)
     {
-        return $this->repository->show($color);
+        return $this->repository->show($group);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ColorsUpdateRequest $request,Color $color)
+    public function update(ColorGroupUpdateRequest $request,Color_Group $group)
     {
-        return $this->repository->update($request,$color);
+        return $this->repository->update($request,$group);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Color $color)
+    public function destroy(Color_Group $group)
     {
-        return $this->repository->destroy($color);
+        return $this->repository->destroy($group);
     }
 
 }

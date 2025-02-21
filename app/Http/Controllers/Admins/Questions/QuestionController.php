@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admins\Questions;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Questions\QuestionsCreateRequest;
 use App\Http\Requests\Questions\QuestionsUpdateRequest;
+use App\Http\Requests\Questions\QuestionsUploaderRequest;
 use App\Interfaces\Questions\QuestionInterface;
 use App\Models\Question;
 
@@ -61,6 +62,10 @@ class QuestionController extends Controller
     public function activation(Question $question)
     {
         return $this->repository->change_activation($question);
+    }
 
+    public function uploader(QuestionsUploaderRequest $request)
+    {
+        return $this->repository->uploader($request);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admins\Colors;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Colors\ColorsCreateRequest;
+use App\Http\Requests\Colors\ColorsImageUpdateRequest;
 use App\Http\Requests\Colors\ColorsUpdateRequest;
 use App\Interfaces\Colors\ColorInterface;
 use App\Models\Color;
@@ -53,6 +54,11 @@ class ColorController extends Controller
     public function update(ColorsUpdateRequest $request,Color $color)
     {
         return $this->repository->update($request,$color);
+    }
+
+    public function update_image(ColorsImageUpdateRequest $request,Color $color)
+    {
+        return $this->repository->update_image($request,$color);
     }
 
     /**

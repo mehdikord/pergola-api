@@ -22,9 +22,12 @@ Route::middleware('auth:admins')->group(function () {
 
     //Colors
     Route::prefix('colors')->as('colors.')->group(function () {
+        Route::get('groups/all',[\App\Http\Controllers\Admins\Color_Groups\ColorGroupsController::class, 'all'])->name('all');
+
         Route::apiResource('groups',\App\Http\Controllers\Admins\Color_Groups\ColorGroupsController::class);
         Route::get('all',[\App\Http\Controllers\Admins\Colors\ColorController::class, 'all'])->name('all');
         Route::get('{color}/activation',[\App\Http\Controllers\Admins\Colors\ColorController::class, 'activation'])->name('activation');
+        Route::post('{color}/image',[\App\Http\Controllers\Admins\Colors\ColorController::class, 'update_image'])->name('update_image');
     });
     Route::apiResource('colors',\App\Http\Controllers\Admins\Colors\ColorController::class);
 
@@ -39,6 +42,7 @@ Route::middleware('auth:admins')->group(function () {
     //Questions
     Route::prefix('questions')->as('questions.')->group(function () {
         Route::get('{question}/activation',[\App\Http\Controllers\Admins\Questions\QuestionController::class, 'activation'])->name('activation');
+        Route::post('uploader',[\App\Http\Controllers\Admins\Questions\QuestionController::class, 'uploader'])->name('uploader')->withoutMiddleware('auth:admins');
     });
 
     Route::apiResource('questions',\App\Http\Controllers\Admins\Questions\QuestionController::class);

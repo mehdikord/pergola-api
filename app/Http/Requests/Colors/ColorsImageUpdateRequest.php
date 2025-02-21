@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ColorsCreateRequest extends FormRequest
+class ColorsImageUpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -18,9 +18,7 @@ class ColorsCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:colors,name',
             'image' => 'nullable|image',
-            'color' => 'required',
         ];
     }
 

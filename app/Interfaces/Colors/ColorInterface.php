@@ -13,6 +13,7 @@ interface ColorInterface
     public function show($item);
 
     public function update($request,$item);
+    public function update_image($request,$item);
 
     public function destroy($item);
 

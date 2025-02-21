@@ -16,4 +16,6 @@ interface QuestionInterface
 
     public function change_activation($item);
 
+    public function uploader($request);
+
 }

@@ -4,6 +4,7 @@ namespace App\Repositories\Questions;
 use App\Http\Resources\Questions\QuestionIndexResource;
 use App\Interfaces\Questions\QuestionInterface;
 use App\Models\Question;
+use Illuminate\Support\Facades\Storage;
 
 class QuestionRepository implements QuestionInterface
 {
@@ -77,6 +78,16 @@ class QuestionRepository implements QuestionInterface
    {
        $item->update(['is_active' => !$item->is_active]);
        return helper_response_updated([]);
+   }
+
+   public function uploader($request)
+   {
+       if ($request->hasFile('file')) {
+           $path = $request->file('file')->store('attachments/questions', 'public');
+           $url = Storage::disk('public')->url($path);
+           return response()->json(['location' => $url]);
+       }
+
    }
 
 

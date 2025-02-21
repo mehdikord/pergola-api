@@ -24,6 +24,7 @@ class ColorShortResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'image' => $this->image,
             'color' => $this->color,
         ];
     }
