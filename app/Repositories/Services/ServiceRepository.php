@@ -30,7 +30,10 @@ class ServiceRepository implements ServiceInterface
                }
            }
        }
-       return helper_response_fetch(new QuestionIndexResource($result));
+       if ($result){
+           return helper_response_fetch(new QuestionIndexResource($result));
+       }
+       return helper_response_fetch($result);
    }
 
 

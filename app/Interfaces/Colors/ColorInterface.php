@@ -8,6 +8,8 @@ interface ColorInterface
 
     public function all();
 
+    public function grouping($request);
+
     public function store($request);
 
     public function show($item);

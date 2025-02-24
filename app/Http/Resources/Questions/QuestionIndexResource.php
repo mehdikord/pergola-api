@@ -39,7 +39,6 @@ class QuestionIndexResource extends JsonResource
 
         }
 
-
         return [
             'id' => $this->id,
             'from_color_id' => $this->from_color_id,

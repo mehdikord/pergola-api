@@ -44,6 +44,25 @@ class ColorRepository implements ColorInterface
        return helper_response_fetch(new ColorIndexResource($data));
    }
 
+    public function grouping($request)
+    {
+         $data = Color::query()->with('group');
+         $data->where('is_active',true);
+         if ($request->filled('name')) {
+             $data->where('name','like','%'.$request->name.'%');
+         }
+         $result = [];
+         foreach ($data->get() as $color) {
+             if ($color->group) {
+                 $result[$color->group->name][] = new ColorShortResource($color);
+             }else{
+                 $result['تک رنگ ها'][] = new ColorShortResource($color);
+             }
+         }
+         return helper_response_fetch($result);
+
+    }
+
     public function update_image($request,$item)
     {
         $image = $item->color;
