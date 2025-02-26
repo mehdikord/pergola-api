@@ -18,4 +18,10 @@ interface QuestionInterface
 
     public function uploader($request);
 
+    public function users_store($request);
+
+    public function users_get();
+
+    public function users_destroy($item);
+
 }

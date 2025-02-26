@@ -97,4 +97,9 @@ class User extends Authenticatable implements JWTSubject
         }
         return null;
     }
+
+    public function questions() : HasMany
+    {
+        return $this->hasMany(User_Question::class,'user_id');
+    }
 }

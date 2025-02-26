@@ -15,7 +15,7 @@ class ProfileRepository implements ProfileInterface
 
     public function update($request)
     {
-        auth('users')->user()->update(['name' => $request->name,'age' => $request->age]);
+        auth('users')->user()->update(['name' => $request->name,'age' => $request->age,'is_barber' => $request->is_barber]);
         return helper_response_fetch(new UserProfileResource(auth('users')->user()));
 
     }

@@ -31,12 +31,20 @@ Route::group(['middleware' => ['auth:users']], function () {
 
     });
 
+
     Route::prefix('services')->as('services.')->group(function () {
        Route::prefix('coloring')->as('coloring.')->group(function () {
            Route::post('',[\App\Http\Controllers\Users\Services\ColoringController::class,'coloring'])->name('coloring');
        });
 
 
+
+    });
+
+    Route::prefix('questions')->as('questions.')->group(function () {
+        Route::post('',[\App\Http\Controllers\Users\Questions\QuestionController::class,'store'])->name('store');
+        Route::get('',[\App\Http\Controllers\Users\Questions\QuestionController::class,'index'])->name('index');
+        Route::delete('{question}',[\App\Http\Controllers\Users\Questions\QuestionController::class,'destroy'])->name('destroy');
 
     });
 

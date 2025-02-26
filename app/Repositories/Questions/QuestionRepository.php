@@ -2,6 +2,7 @@
 namespace App\Repositories\Questions;
 
 use App\Http\Resources\Questions\QuestionIndexResource;
+use App\Http\Resources\Questions\QuestionUsersIndexResource;
 use App\Interfaces\Questions\QuestionInterface;
 use App\Models\Question;
 use Illuminate\Support\Facades\Storage;
@@ -98,6 +99,40 @@ class QuestionRepository implements QuestionInterface
            return response()->json(['location' => $url]);
        }
 
+   }
+
+   public function users_store($request)
+   {
+       $items = null;
+       $answers = null;
+       if ($request->items){
+           $items = json_encode($request->items, JSON_THROW_ON_ERROR);
+       }
+       if ($request->answers){
+           $answers = json_encode($request->answers, JSON_THROW_ON_ERROR);
+       }
+       auth('users')->user()->questions()->create([
+           'from_color_id' => $request->from_color_id,
+           'to_color_id' => $request->to_color_id,
+           'items' => $items,
+           'answers' => $answers,
+       ]);
+       return helper_response_created([]);
+   }
+
+   public function users_get()
+   {
+       $data = auth('users')->user()->questions();
+       $data->orderByDesc('id');
+       return helper_response_fetch(QuestionUsersIndexResource::collection($data->get()));
+   }
+   public function users_destroy($item)
+   {
+       if ($item->user_id != auth('users')->id()){
+           return helper_response_error('access denied');
+       }
+       $item->delete();
+       return helper_response_deleted();
    }
 
 
