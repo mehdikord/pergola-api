@@ -45,6 +45,11 @@ Route::group(['middleware' => ['auth:users']], function () {
         Route::post('',[\App\Http\Controllers\Users\Questions\QuestionController::class,'store'])->name('store');
         Route::get('',[\App\Http\Controllers\Users\Questions\QuestionController::class,'index'])->name('index');
         Route::delete('{question}',[\App\Http\Controllers\Users\Questions\QuestionController::class,'destroy'])->name('destroy');
+    });
+
+    Route::prefix('invoices')->as('invoices.')->group(function () {
+       Route::get('',[\App\Http\Controllers\Users\Profile\ProfileController::class,'invoices'])->name('index');
+       Route::get('/{invoice}',[\App\Http\Controllers\Users\Profile\ProfileController::class,'invoices_show'])->name('show');
 
     });
 
