@@ -23,4 +23,6 @@ interface PlanInterface
 
     public function users_active();
 
+    public function users_own();
+
 }

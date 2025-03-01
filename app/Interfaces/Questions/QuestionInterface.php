@@ -11,6 +11,7 @@ interface QuestionInterface
     public function show($item);
 
     public function update($request,$item);
+    public function answers_update($request,$item);
 
     public function destroy($item);
 

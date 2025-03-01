@@ -79,6 +79,24 @@ class QuestionRepository implements QuestionInterface
        return helper_response_fetch(new QuestionIndexResource($item));
    }
 
+   public function answers_update($request, $item)
+   {
+       if (is_array($request->answers)) {
+           $item->answers()->delete();
+           foreach ($request->answers as $answer) {
+               $get_answer = null;
+               if ($answer){
+                   $get_answer = json_encode($answer, JSON_THROW_ON_ERROR);
+               }
+               $item->answers()->create([
+                   'answer' => $get_answer,
+               ]);
+           }
+       }
+
+       return helper_response_fetch(new QuestionIndexResource($item));
+   }
+
    public function destroy($item)
    {
        $item->delete();

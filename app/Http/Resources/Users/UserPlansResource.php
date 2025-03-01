@@ -13,7 +13,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $profile
  * @property mixed $config
  */
-class UserPlanActiveResource extends JsonResource
+class UserPlansResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -22,17 +22,17 @@ class UserPlanActiveResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $days = null;
-        if ($this->start_at && $this->end_at){
-            $start = Carbon::now();
-            $days = $start->diffInDays($this->end_at);
-        }
         return [
             'id' => $this->id,
+            'invoice_id' => $this->invoice_id,
             'title' => $this->title,
             'start_at' => $this->start_at,
             'end_at' => $this->end_at,
-            'days' => $days
+            'status' => $this->status,
+            'access' => $this->access,
+            'plan' => $this->plan,
+            'created_at' => $this->created_at
+
         ];
     }
 }

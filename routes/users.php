@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth:users']], function () {
     Route::prefix('plans')->as('plans.')->group(function () {
         Route::get('all',[\App\Http\Controllers\Users\Plans\PlanController::class,'index'])->name('index')->withoutMiddleware('auth:users');
        Route::get('active',[\App\Http\Controllers\Users\Plans\PlanController::class,'active'])->name('active');
+       Route::get('own',[\App\Http\Controllers\Users\Plans\PlanController::class,'own'])->name('own');
 
 
     });

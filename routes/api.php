@@ -17,3 +17,7 @@ Route::get('colors',[\App\Http\Controllers\Public\PublicColorController::class,'
 Route::get('colors/grouping',[\App\Http\Controllers\Public\PublicColorController::class,'colors_grouping'])->name('colors_grouping');
 
 Route::get('options',[\App\Http\Controllers\Public\PublicColorController::class,'options'])->name('options');
+
+Route::group(['prefix' => 'laravel-filemanager'], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});

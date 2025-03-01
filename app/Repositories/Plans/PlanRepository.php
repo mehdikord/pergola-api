@@ -4,6 +4,7 @@ namespace App\Repositories\Plans;
 use App\Http\Resources\Plans\PlanIndexResource;
 use App\Http\Resources\Plans\PlanShortResource;
 use App\Http\Resources\Users\UserPlanActiveResource;
+use App\Http\Resources\Users\UserPlansResource;
 use App\Interfaces\Plans\PlanInterface;
 use App\Models\Plan;
 use App\Models\User_Plan;
@@ -79,7 +80,17 @@ class PlanRepository implements PlanInterface
    public function users_active()
    {
        $active = auth('users')->user()->plans()->where('status',User_Plan::STATUS_ACTIVE)->first();
+       if (!$active){
+           return helper_response_fetch();
+       }
        return helper_response_fetch(new UserPlanActiveResource($active));
+   }
+
+   public function users_own()
+   {
+       $data = auth('users')->user()->plans()->where('status','!=',User_Plan::STATUS_ACTIVE)->orderByRaw("FIELD(status, ?) DESC", [User_Plan::STATUS_RESERVED]);
+       return helper_response_fetch(UserPlansResource::collection($data->get()));
+
    }
 
 

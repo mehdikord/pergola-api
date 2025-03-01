@@ -23,4 +23,9 @@ class PlanController extends Controller
     {
         return $this->repository->users_active();
     }
+
+    public function own()
+    {
+        return $this->repository->users_own();
+    }
 }

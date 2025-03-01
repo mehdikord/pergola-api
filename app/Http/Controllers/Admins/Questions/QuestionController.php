@@ -8,6 +8,7 @@ use App\Http\Requests\Questions\QuestionsUpdateRequest;
 use App\Http\Requests\Questions\QuestionsUploaderRequest;
 use App\Interfaces\Questions\QuestionInterface;
 use App\Models\Question;
+use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
@@ -49,6 +50,11 @@ class QuestionController extends Controller
     public function update(QuestionsUpdateRequest $request,Question $question)
     {
         return $this->repository->update($request,$question);
+    }
+
+    public function answers_update(Request $request,Question $question)
+    {
+        return $this->repository->answers_update($request,$question);
     }
 
     /**
