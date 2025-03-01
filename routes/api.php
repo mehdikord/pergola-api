@@ -18,6 +18,6 @@ Route::get('colors/grouping',[\App\Http\Controllers\Public\PublicColorController
 
 Route::get('options',[\App\Http\Controllers\Public\PublicColorController::class,'options'])->name('options');
 
-Route::group(['prefix' => 'laravel-filemanager'], function () {
+Route::group(['prefix' => 'laravel-filemanager','middleware' => ['web', 'cors']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
