@@ -18,7 +18,7 @@ class CorsMiddleware
         $response = $next($request);
 
 
-        $response->headers->set('Access-Control-Allow-Origin', '*,https://admin.pergola.ir,http://admin.pergola.ir,admin.pergola.ir');
+        $response->headers->set('Access-Control-Allow-Origin', 'https://admin.pergola.ir');
         $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE');
         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With, Application');
         $response->headers->set('Access-Control-Allow-Credentials', 'true');
