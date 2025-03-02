@@ -20,6 +20,13 @@ Route::middleware('auth:admins')->group(function () {
 
     Route::apiResource('users',\App\Http\Controllers\Admins\Users\UserController::class);
 
+    Route::prefix('admins')->as('admins.')->group(function () {
+        Route::get('{admin}/activation',[\App\Http\Controllers\Admins\Admins\AdminController::class, 'activation'])->name('activation');
+        Route::post('{admin}/password',[\App\Http\Controllers\Admins\Admins\AdminController::class, 'change_password'])->name('change_password');
+    });
+    Route::apiResource('admins',\App\Http\Controllers\Admins\Admins\AdminController::class);
+
+
     //Colors
     Route::prefix('colors')->as('colors.')->group(function () {
         Route::get('groups/all',[\App\Http\Controllers\Admins\Color_Groups\ColorGroupsController::class, 'all'])->name('all');
@@ -65,6 +72,12 @@ Route::middleware('auth:admins')->group(function () {
         });
         Route::apiResource('options',\App\Http\Controllers\Admins\Answer_Options\AnswerOptionController::class);
 
+
+    });
+
+    //Invoices
+    Route::prefix('invoices')->as('invoices.')->group(function () {
+        Route::get('',[\App\Http\Controllers\Admins\Invoices\InvoiceController::class,'index'])->name('index');
 
     });
 

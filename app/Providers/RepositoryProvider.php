@@ -2,20 +2,24 @@
 
 namespace App\Providers;
 
+use App\Interfaces\Admins\AdminInterface;
 use App\Interfaces\Answer_Options\AnswerOptionInterface;
 use App\Interfaces\Auth\AuthInterface;
 use App\Interfaces\Color_Groups\ColorGroupInterface;
 use App\Interfaces\Colors\ColorInterface;
+use App\Interfaces\Invoices\InvoiceInterface;
 use App\Interfaces\Options\OptionInterface;
 use App\Interfaces\Plans\PlanInterface;
 use App\Interfaces\Profile\ProfileInterface;
 use App\Interfaces\Questions\QuestionInterface;
 use App\Interfaces\Services\ServiceInterface;
 use App\Interfaces\Users\UserInterface;
+use App\Repositories\Admins\AdminRepository;
 use App\Repositories\Answer_Options\AnswerOptionRepository;
 use App\Repositories\Auth\AuthRepository;
 use App\Repositories\Color_Groups\ColorGroupRepository;
 use App\Repositories\Colors\ColorRepository;
+use App\Repositories\Invoices\invoiceRepository;
 use App\Repositories\Options\OptionRepository;
 use App\Repositories\Plans\PlanRepository;
 use App\Repositories\Profile\ProfileRepository;
@@ -48,6 +52,10 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(ServiceInterface::class,ServiceRepository::class);
 
         $this->app->bind(ColorGroupInterface::class,ColorGroupRepository::class);
+
+        $this->app->bind(AdminInterface::class,AdminRepository::class);
+
+        $this->app->bind(InvoiceInterface::class,invoiceRepository::class);
 
     }
 
