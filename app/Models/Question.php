@@ -27,4 +27,9 @@ class Question extends Model
     {
         return $this->hasMany(Question_Answer::class , 'question_id');
     }
+
+    public function logs():HasMany
+    {
+        return $this->hasMany(Question_Log::class , 'question_id');
+    }
 }

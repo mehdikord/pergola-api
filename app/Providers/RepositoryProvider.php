@@ -7,6 +7,7 @@ use App\Interfaces\Answer_Options\AnswerOptionInterface;
 use App\Interfaces\Auth\AuthInterface;
 use App\Interfaces\Color_Groups\ColorGroupInterface;
 use App\Interfaces\Colors\ColorInterface;
+use App\Interfaces\Dashboard\DashboardInterface;
 use App\Interfaces\Invoices\InvoiceInterface;
 use App\Interfaces\Options\OptionInterface;
 use App\Interfaces\Plans\PlanInterface;
@@ -19,6 +20,7 @@ use App\Repositories\Answer_Options\AnswerOptionRepository;
 use App\Repositories\Auth\AuthRepository;
 use App\Repositories\Color_Groups\ColorGroupRepository;
 use App\Repositories\Colors\ColorRepository;
+use App\Repositories\Dashboard\DashboardRepository;
 use App\Repositories\Invoices\invoiceRepository;
 use App\Repositories\Options\OptionRepository;
 use App\Repositories\Plans\PlanRepository;
@@ -56,6 +58,8 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(AdminInterface::class,AdminRepository::class);
 
         $this->app->bind(InvoiceInterface::class,invoiceRepository::class);
+
+        $this->app->bind(DashboardInterface::class,DashboardRepository::class);
 
     }
 

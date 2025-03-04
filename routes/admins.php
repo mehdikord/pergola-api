@@ -13,6 +13,13 @@ Route::prefix('auth')->group(function () {
 
 Route::middleware('auth:admins')->group(function () {
 
+    Route::prefix('dashboard')->as('dashboard.')->group(function () {
+        Route::prefix('info')->as('info.')->group(function () {
+            Route::get('system',[\App\Http\Controllers\Admins\Dashboard\DashboardController::class, 'info_system'])->name('info_system');
+            Route::get('colors',[\App\Http\Controllers\Admins\Dashboard\DashboardController::class, 'info_colors'])->name('info_colors');
+
+        });
+    });
     Route::prefix('users')->as('users.')->group(function () {
         Route::get('{user}/activation',[\App\Http\Controllers\Admins\Users\UserController::class, 'activation'])->name('activation');
         Route::post('{user}/plans',[\App\Http\Controllers\Admins\Users\UserController::class, 'add_plan'])->name('add_plan');
