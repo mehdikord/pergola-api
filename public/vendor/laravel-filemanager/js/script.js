@@ -657,13 +657,13 @@ function use(items) {
   var selectedItems = getSelectedItems();
   var url = selectedItems[0].url; // فقط اولین URL برای TinyMCE
 
-  console.log('use() called with items:', selectedItems); // برای دیباگ
+  console.log('use() called with items:', selectedItems);
 
   if (window.opener) {
     window.opener.postMessage({
       mceAction: 'fileSelected',
       url: url
-    }, 'https://core.pergola.ir'); // دامنه دقیق والد
+    }, 'https://admin.pergola.ir'); // دامنه والد (TinyMCE)
     console.log('Message posted to opener:', url);
     window.close();
   } else {
@@ -736,3 +736,7 @@ function dialog(title, value, callback) {
   });
   $('#dialog').modal('show').find('.modal-title').text(title);
 }
+$(document).on('click', '#btn-use', function () {
+  console.log('Confirm button clicked');
+  use(getSelectedItems());
+});
