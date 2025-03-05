@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie','filemanager/*'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie','laravel-filemanager/*'],
 
     'allowed_methods' => ['*'],
 
