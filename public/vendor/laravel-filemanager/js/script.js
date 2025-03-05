@@ -662,10 +662,9 @@ function use(items) {
   if (window.opener) {
     window.opener.postMessage({
       mceAction: 'fileSelected',
-      items: selectedItems, // کل آرایه آیتم‌ها
-      url: url // URL اولین آیتم برای TinyMCE
+      url: url
     }, 'https://admin.pergola.ir'); // دامنه والد
-    console.log('Message posted to opener:', selectedItems);
+    console.log('Message posted to opener:', url);
     window.close();
   } else {
     console.log('window.opener not found');
