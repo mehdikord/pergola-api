@@ -1,39 +1,36 @@
-(function ($) {
-    $.fn.filemanager = function (type, options) {
-        type = type || 'file';
+(function( $ ){
 
-        this.on('click', function (e) {
-            var route_prefix = options && options.prefix ? options.prefix : '/filemanager';
-            var target_input = $('#' + $(this).data('input'));
-            var target_preview = $('#' + $(this).data('preview'));
-            window.open(route_prefix + '?type=' + type, 'FileManager', 'width=900,height=600');
+  $.fn.filemanager = function(type, options) {
+    type = type || 'file';
 
-            window.SetUrl = function (items) {
-                var file_path = items.map(function (item) {
-                    return item.url;
-                }).join(',');
+    this.on('click', function(e) {
+      var route_prefix = (options && options.prefix) ? options.prefix : '/filemanager';
+      var target_input = $('#' + $(this).data('input'));
+      var target_preview = $('#' + $(this).data('preview'));
+      window.open(route_prefix + '?type=' + type, 'FileManager', 'width=900,height=600');
+      window.SetUrl = function (items) {
+        var file_path = items.map(function (item) {
+          return item.url;
+        }).join(',');
 
-                // استفاده از window.parent به جای window.opener
-                window.parent.postMessage(
-                    {
-                        mceAction: 'fileSelected',
-                        url: file_path,
-                    },
-                    '*'
-                );
+        // set the value of the desired input to image url
+        target_input.val('').val(file_path).trigger('change');
 
-                // حفظ عملکرد قدیمی (اختیاری)
-                target_input.val('').val(file_path).trigger('change');
-                target_preview.html('');
-                items.forEach(function (item) {
-                    target_preview.append(
-                        $('<img>').css('height', '5rem').attr('src', item.thumb_url)
-                    );
-                });
-                target_preview.trigger('change');
-            };
+        // clear previous preview
+        target_preview.html('');
 
-            return false;
+        // set or change the preview image src
+        items.forEach(function (item) {
+          target_preview.append(
+            $('<img>').css('height', '5rem').attr('src', item.thumb_url)
+          );
         });
-    };
+
+        // trigger change event
+        target_preview.trigger('change');
+      };
+      return false;
+    });
+  }
+
 })(jQuery);

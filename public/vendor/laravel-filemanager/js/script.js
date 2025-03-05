@@ -818,21 +818,3 @@ function dialog(title, value, callback) {
   });
   $('#dialog').modal('show').find('.modal-title').text(title);
 }
-
-// در فایل standalonepopup.js یا index.blade.php
-function useFile(url) {
-    // ارسال پیام به پنجره والد (TinyMCE)
-    window.parent.postMessage({
-        mceAction: 'fileSelected',
-        url: url,
-    }, '*');
-
-    // بستن پنجره (اختیاری، بسته به نیاز)
-    // window.close();
-}
-
-// اتصال تابع به دکمه تأیید
-document.querySelector('#btn-use-file').addEventListener('click', function () {
-    const selectedFileUrl = document.querySelector('#selected-file').value; // URL فایل انتخاب‌شده
-    useFile(selectedFileUrl);
-});
