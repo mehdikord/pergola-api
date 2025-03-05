@@ -654,103 +654,15 @@ function getUrlParam(paramName) {
 }
 
 function use(items) {
-  function useTinymce3(url) {
-    if (!usingTinymce3()) { return; }
-
-    var win = tinyMCEPopup.getWindowArg("window");
-    win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = url;
-    if (typeof(win.ImageDialog) != "undefined") {
-      // Update image dimensions
-      if (win.ImageDialog.getImageData) {
-        win.ImageDialog.getImageData();
-      }
-
-      // Preview if necessary
-      if (win.ImageDialog.showPreviewImage) {
-        win.ImageDialog.showPreviewImage(url);
-      }
-    }
-    tinyMCEPopup.close();
-  }
-
-  function useTinymce4AndColorbox(url) {
-    if (!usingTinymce4AndColorbox()) { return; }
-
-    parent.document.getElementById(getUrlParam('field_name')).value = url;
-
-    if(typeof parent.tinyMCE !== "undefined") {
-      parent.tinyMCE.activeEditor.windowManager.close();
-    }
-    if(typeof parent.$.fn.colorbox !== "undefined") {
-      parent.$.fn.colorbox.close();
-    }
-  }
-
-  function useTinymce5(url){
-    if (!usingTinymce5()) { return; }
-
-    parent.postMessage({
-      mceAction: 'insert',
-      content: url
-    });
-
-    parent.postMessage({ mceAction: 'close' });
-  }
-
-  function useCkeditor3(url) {
-    if (!usingCkeditor3()) { return; }
-
-    if (window.opener) {
-      // Popup
-      window.opener.CKEDITOR.tools.callFunction(getUrlParam('CKEditorFuncNum'), url);
-    } else {
-      // Modal (in iframe)
-      parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorFuncNum'), url);
-      parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorCleanUpFuncNum'));
-    }
-  }
-
-  function useFckeditor2(url) {
-    if (!usingFckeditor2()) { return; }
-
-    var p = url;
-    var w = data['Properties']['Width'];
-    var h = data['Properties']['Height'];
-    window.opener.SetUrl(p,w,h);
-  }
-
-  var url = items[0].url;
-  var callback = getUrlParam('callback');
-  var useFileSucceeded = true;
-
-  if (usingWysiwygEditor()) {
-    useTinymce3(url);
-
-    useTinymce4AndColorbox(url);
-
-    useTinymce5(url);
-
-    useCkeditor3(url);
-
-    useFckeditor2(url);
-  } else if (callback && window[callback]) {
-    window[callback](getSelectedItems());
-  } else if (callback && parent[callback]) {
-    parent[callback](getSelectedItems());
-  } else if (window.opener) { // standalone button or other situations
-    window.opener.SetUrl(getSelectedItems());
+  console.log('use() called with items:', items);
+  var selectedItems = getSelectedItems();
+  if (window.SetUrl) {
+    console.log('Calling window.SetUrl with:', selectedItems);
+    window.SetUrl(selectedItems);
+    window.close();
   } else {
-    useFileSucceeded = false;
-  }
-
-  if (useFileSucceeded) {
-    if (window.opener) {
-      window.close();
-    }
-  } else {
-    console.log('window.opener not found');
-    // No editor found, open/download file using browser's default method
-    window.open(url);
+    console.log('window.SetUrl not found');
+    window.open(selectedItems[0].url);
   }
 }
 //end useFile
