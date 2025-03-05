@@ -819,11 +819,3 @@ function dialog(title, value, callback) {
   $('#dialog').modal('show').find('.modal-title').text(title);
 }
 
-function SetUrl(url) {
-    if (window.opener && window.opener.SetUrl) {
-        window.opener.SetUrl(url); // ارسال URL به پنجره والد (TinyMCE)
-        window.close(); // بستن پنجره فایل منیجر
-    } else {
-        alert('خطا: پنجره والد یافت نشد!');
-    }
-}
