@@ -654,15 +654,19 @@ function getUrlParam(paramName) {
 }
 
 function use(items) {
-  console.log('use() called with items:', items);
   var selectedItems = getSelectedItems();
-  if (window.SetUrl) {
-    console.log('Calling window.SetUrl with:', selectedItems);
-    window.SetUrl(selectedItems);
+  var url = selectedItems[0].url; // فقط اولین URL را می‌گیریم (برای TinyMCE)
+
+  // ارسال پیام به پنجره والد با postMessage
+  if (window.opener) {
+    window.opener.postMessage({
+      mceAction: 'fileSelected',
+      url: url
+    }, 'https://core.pergola.ir'); // دامنه دقیق را مشخص کنید
     window.close();
   } else {
-    console.log('window.SetUrl not found');
-    window.open(selectedItems[0].url);
+    console.log('window.opener not found');
+    window.open(url); // به‌عنوان fallback
   }
 }
 //end useFile
