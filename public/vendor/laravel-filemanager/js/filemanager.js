@@ -20,9 +20,3 @@ window.filemanager = function filemanager() {
         window.SetUrl = resolve;
     });
 };
-function useFile(url) {
-    parent.postMessage({
-        mceAction: 'fileSelected',
-        url: url,
-    }, '*');
-}
