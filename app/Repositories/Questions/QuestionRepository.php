@@ -97,6 +97,24 @@ class QuestionRepository implements QuestionInterface
        return helper_response_fetch(new QuestionIndexResource($item));
    }
 
+   public function copy($item)
+   {
+       $data = Question::create([
+           'from_color_id' => $item->from_color_id,
+           'to_color_id' => $item->to_color_id,
+           'items' => $item->items,
+           'is_active' => true
+       ]);
+
+       foreach ($data->answers as $answer) {
+           $data->answers()->create([
+               'answer' => $answer,
+           ]);
+       }
+
+       return helper_response_fetch(new QuestionIndexResource($data));
+   }
+
    public function destroy($item)
    {
        $item->delete();
@@ -152,6 +170,5 @@ class QuestionRepository implements QuestionInterface
        $item->delete();
        return helper_response_deleted();
    }
-
 
 }

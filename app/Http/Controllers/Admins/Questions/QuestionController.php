@@ -70,6 +70,12 @@ class QuestionController extends Controller
         return $this->repository->change_activation($question);
     }
 
+    public function copy(Question $question)
+    {
+        return $this->repository->copy($question);
+
+    }
+
     public function uploader(QuestionsUploaderRequest $request)
     {
         return $this->repository->uploader($request);

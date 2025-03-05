@@ -56,6 +56,7 @@ Route::middleware('auth:admins')->group(function () {
     //Questions
     Route::prefix('questions')->as('questions.')->group(function () {
         Route::get('{question}/activation',[\App\Http\Controllers\Admins\Questions\QuestionController::class, 'activation'])->name('activation');
+        Route::get('{question}/copy',[\App\Http\Controllers\Admins\Questions\QuestionController::class, 'copy'])->name('copy');
         Route::post('{question}/answers',[\App\Http\Controllers\Admins\Questions\QuestionController::class, 'answers_update'])->name('answers_update');
         Route::post('uploader',[\App\Http\Controllers\Admins\Questions\QuestionController::class, 'uploader'])->name('uploader')->withoutMiddleware('auth:admins');
     });
