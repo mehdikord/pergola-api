@@ -106,9 +106,9 @@ class QuestionRepository implements QuestionInterface
            'is_active' => true
        ]);
 
-       foreach ($data->answers as $answer) {
+       foreach ($item->answers as $answer) {
            $data->answers()->create([
-               'answer' => $answer,
+               'answer' => $answer->answer,
            ]);
        }
 
