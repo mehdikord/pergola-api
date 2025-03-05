@@ -8,14 +8,13 @@
             var target_preview = $('#' + $(this).data('preview'));
             window.open(route_prefix + '?type=' + type, 'FileManager', 'width=900,height=600');
 
-            // حذف تابع قدیمی SetUrl و جایگزینی با postMessage
             window.SetUrl = function (items) {
                 var file_path = items.map(function (item) {
                     return item.url;
                 }).join(',');
 
-                // ارسال پیام به TinyMCE با postMessage
-                window.opener.postMessage(
+                // استفاده از window.parent به جای window.opener
+                window.parent.postMessage(
                     {
                         mceAction: 'fileSelected',
                         url: file_path,
@@ -23,7 +22,7 @@
                     '*'
                 );
 
-                // اگر همچنان نیاز به پشتیبانی از input و preview دارید
+                // حفظ عملکرد قدیمی (اختیاری)
                 target_input.val('').val(file_path).trigger('change');
                 target_preview.html('');
                 items.forEach(function (item) {
