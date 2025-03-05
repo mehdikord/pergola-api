@@ -662,17 +662,16 @@ function use(items) {
   if (window.opener) {
     window.opener.postMessage({
       mceAction: 'fileSelected',
-      url: url
-    }, 'https://admin.pergola.ir'); // دامنه والد (TinyMCE)
-    console.log('Message posted to opener:', url);
+      items: selectedItems, // کل آرایه آیتم‌ها
+      url: url // URL اولین آیتم برای TinyMCE
+    }, 'https://admin.pergola.ir'); // دامنه والد
+    console.log('Message posted to opener:', selectedItems);
     window.close();
   } else {
     console.log('window.opener not found');
-    window.open(url); // به‌عنوان fallback
+    window.open(url);
   }
 }
-//end useFile
-
 // ==================================
 // ==     WYSIWYG Editors Check    ==
 // ==================================
