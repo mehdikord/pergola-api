@@ -655,14 +655,16 @@ function getUrlParam(paramName) {
 
 function use(items) {
   var selectedItems = getSelectedItems();
-  var url = selectedItems[0].url; // فقط اولین URL را می‌گیریم (برای TinyMCE)
+  var url = selectedItems[0].url; // فقط اولین URL برای TinyMCE
 
-  // ارسال پیام به پنجره والد با postMessage
+  console.log('use() called with items:', selectedItems); // برای دیباگ
+
   if (window.opener) {
     window.opener.postMessage({
       mceAction: 'fileSelected',
       url: url
-    }, 'https://core.pergola.ir'); // دامنه دقیق را مشخص کنید
+    }, 'https://core.pergola.ir'); // دامنه دقیق والد
+    console.log('Message posted to opener:', url);
     window.close();
   } else {
     console.log('window.opener not found');
