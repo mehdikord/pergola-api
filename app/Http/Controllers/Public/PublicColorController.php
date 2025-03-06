@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use App\Interfaces\Colors\ColorInterface;
 use App\Interfaces\Options\OptionInterface;
+use App\Interfaces\Posts\PostInterface;
 use App\Repositories\Colors\ColorRepository;
 use App\Repositories\Options\OptionRepository;
 use Illuminate\Http\Request;
@@ -14,11 +15,15 @@ class PublicColorController extends Controller
     protected ColorInterface $color_repository;
 
     protected OptionInterface $option_repository;
+    protected PostInterface $post_repository;
 
-    public function __construct(ColorInterface $color, OptionRepository $option)
+    public function __construct(ColorInterface $color, OptionRepository $option,PostInterface $post)
     {
+        $this->middleware('generate_fetch_query_params')->only('posts');
+
         $this->color_repository = $color;
         $this->option_repository = $option;
+        $this->post_repository = $post;
     }
 
 
@@ -35,5 +40,13 @@ class PublicColorController extends Controller
     public function options()
     {
         return $this->option_repository->all();
+    }
+
+    public function posts()
+    {
+        return $this->post_repository->public_index();
+    }
+    public function posts_show($slug){
+        return $this->post_repository->show_slug($slug);
     }
 }

@@ -21,3 +21,9 @@ Route::get('options',[\App\Http\Controllers\Public\PublicColorController::class,
 Route::group(['prefix' => 'laravel-filemanager','middleware' => ['web', 'cors']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
+
+Route::prefix('posts')->group(function () {
+    Route::get('',[\App\Http\Controllers\Public\PublicColorController::class,'posts'])->name('posts');
+    Route::get('/{slug}',[\App\Http\Controllers\Public\PublicColorController::class,'posts_show'])->name('posts_show');
+
+});

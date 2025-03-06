@@ -11,6 +11,7 @@ use App\Interfaces\Dashboard\DashboardInterface;
 use App\Interfaces\Invoices\InvoiceInterface;
 use App\Interfaces\Options\OptionInterface;
 use App\Interfaces\Plans\PlanInterface;
+use App\Interfaces\Posts\PostInterface;
 use App\Interfaces\Profile\ProfileInterface;
 use App\Interfaces\Questions\QuestionInterface;
 use App\Interfaces\Services\ServiceInterface;
@@ -24,6 +25,7 @@ use App\Repositories\Dashboard\DashboardRepository;
 use App\Repositories\Invoices\invoiceRepository;
 use App\Repositories\Options\OptionRepository;
 use App\Repositories\Plans\PlanRepository;
+use App\Repositories\Posts\PostRepository;
 use App\Repositories\Profile\ProfileRepository;
 use App\Repositories\Questions\QuestionRepository;
 use App\Repositories\Services\ServiceRepository;
@@ -60,6 +62,8 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(InvoiceInterface::class,invoiceRepository::class);
 
         $this->app->bind(DashboardInterface::class,DashboardRepository::class);
+
+        $this->app->bind(PostInterface::class,PostRepository::class);
 
     }
 

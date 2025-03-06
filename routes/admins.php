@@ -89,6 +89,14 @@ Route::middleware('auth:admins')->group(function () {
 
     });
 
+    //Posts
+    Route::prefix('posts')->as('posts.')->group(function () {
+
+        Route::get('{post}/activation',[\App\Http\Controllers\Admins\Posts\PostController::class, 'activation'])->name('activation');
+        Route::post('{post}/image',[\App\Http\Controllers\Admins\Posts\PostController::class, 'update_image'])->name('update_image');
+    });
+    Route::apiResource('posts',\App\Http\Controllers\Admins\Posts\PostController::class);
+
 });
 
 ?>
