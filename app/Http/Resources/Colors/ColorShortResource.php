@@ -25,6 +25,7 @@ class ColorShortResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'image' => $this->image,
+            'is_active' => $this->is_active,
             'color' => $this->color,
         ];
     }

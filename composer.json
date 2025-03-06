@@ -8,6 +8,7 @@
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image-laravel": "^1.5",
+        "kavenegar/laravel": "^1.3",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
@@ -32,7 +33,8 @@
         "files": [
             "app/Helpers/Core/core.php",
             "app/Helpers/Core/responses.php",
-            "app/Helpers/Core/auth.php"
+            "app/Helpers/Core/auth.php",
+            "app/Helpers/Core/sms.php"
         ]
     },
     "autoload-dev": {

@@ -22,13 +22,17 @@ function helper_auth_otp_remove_code($phone): void
 }
 
 
-function helper_auth_otp_make_code($phone): void
+function helper_auth_otp_make_code($phone)
 {
     if (env('APP_ENV') === 'local'){
         $code = 123456;
     }else{
         $code = random_int(100000,999999);
+        $message = 'کد ورود شما به پرگولا : '.$code;
+;
+        return kavenegar_send($phone,$message);
     }
+    //Send SMS
     \App\Models\Auth_Code::updateorcreate([
         'phone' => $phone],[
         'code' => $code,

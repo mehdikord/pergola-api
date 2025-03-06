@@ -5,6 +5,7 @@ namespace App\Http\Resources\Questions;
 use App\Http\Resources\Colors\ColorShortResource;
 use App\Http\Resources\Options\OptionShortResource;
 use App\Models\Option;
+use App\Models\Option_Item;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -29,10 +30,11 @@ class QuestionIndexResource extends JsonResource
             $get_items = json_decode($this->items, false, 512, JSON_THROW_ON_ERROR);
             foreach ($get_items as $item){
                 $option = Option::find($item->id);
+                $value = Option_Item::find($item->value);
                 if ($option){
                     $items[]=[
                         'option' => new OptionShortResource($option),
-                        'value' => $item->value,
+                        'value' => $value,
                     ];
                 }
             }

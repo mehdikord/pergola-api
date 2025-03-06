@@ -46,21 +46,37 @@ class ColorRepository implements ColorInterface
 
     public function grouping($request)
     {
-         $data = Color::query()->with('group');
-         $data->where('is_active',true);
-         if ($request->filled('name')) {
-             $data->where('name','like','%'.$request->name.'%');
-         }
-         $result = [];
-         foreach ($data->get() as $color) {
-             if ($color->group) {
-                 $result[$color->group->name][] = new ColorShortResource($color);
-             }else{
-                 $result['تک رنگ ها'][] = new ColorShortResource($color);
-             }
-         }
-         return helper_response_fetch($result);
+        $data = Color::query()->with('group');
 
+        if ($request->filled('name')) {
+            $data->where('name', 'like', '%'.$request->name.'%');
+        }
+
+        $result = [];
+        foreach ($data->get() as $color) {
+            $groupName = $color->group ? $color->group->name : 'تک رنگ ها';
+            $result[$groupName][] = new ColorShortResource($color);
+        }
+
+        // تابع مقایسه برای مرتب‌سازی
+        $compareByActive = function($a, $b) {
+            if ($a['is_active'] === $b['is_active']) return 0;
+            return ($a['is_active'] > $b['is_active']) ? -1 : 1;
+        };
+
+        // مرتب‌سازی هر گروه با مرجع
+        foreach ($result as &$categoryItems) {
+            usort($categoryItems, $compareByActive);
+        }
+
+        return helper_response_fetch($result);
+    }
+
+    public function compareByActive($a, $b) {
+        if ($a['is_active'] == $b['is_active']) {
+            return 0;
+        }
+        return ($a['is_active'] > $b['is_active']) ? -1 : 1;
     }
 
     public function update_image($request,$item)
