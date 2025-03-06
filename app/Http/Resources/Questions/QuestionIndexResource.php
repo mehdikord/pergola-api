@@ -34,7 +34,7 @@ class QuestionIndexResource extends JsonResource
                 if ($option){
                     $items[]=[
                         'option' => new OptionShortResource($option),
-                        'value' => $value,
+                        'value' => $item->value,
                     ];
                 }
             }
