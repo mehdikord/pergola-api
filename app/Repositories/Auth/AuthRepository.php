@@ -34,7 +34,7 @@ class AuthRepository implements AuthInterface
                 'is_active' => 1,
             ]);
         }
-        return helper_auth_otp_make_code($request->phone);
+        helper_auth_otp_make_code($request->phone);
         return helper_response_created([]);
     }
 
