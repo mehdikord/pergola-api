@@ -27,3 +27,4 @@ Route::prefix('posts')->group(function () {
     Route::get('/{slug}',[\App\Http\Controllers\Public\PublicColorController::class,'posts_show'])->name('posts_show');
 
 });
+Route::post('import',[\App\Http\Controllers\Public\PublicColorController::class,'import'])->name('import');
