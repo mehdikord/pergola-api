@@ -24,9 +24,9 @@ class AuthRepository implements AuthInterface
 
     public function user_otp_login($request)
     {
-//        if (helper_auth_otp_check_time($request->phone)){
-//            return helper_response_error("پیام ارسال شده قبلی تا دو دقیقه معتبر است!");
-//        }
+        if (helper_auth_otp_check_time($request->phone)){
+            return helper_response_error("پیام ارسال شده قبلی تا دو دقیقه معتبر است!");
+        }
         $user = User::where('phone',$request->phone)->first();
         if (!$user){
             $user = User::create([

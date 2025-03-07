@@ -29,7 +29,7 @@ function helper_auth_otp_make_code($phone)
     }else{
         $code = random_int(100000,999999);
         $message = 'کد ورود شما به پرگولا : '.$code;
-        kavenegar_send($phone,$message);
+        kavenegar_pattern($phone,'jalaliauth',$code);
     }
     //Send SMS
     \App\Models\Auth_Code::updateorcreate([
