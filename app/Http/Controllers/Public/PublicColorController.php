@@ -58,42 +58,11 @@ class PublicColorController extends Controller
 
     public function import(Request $request){
 
-        $data = Excel::toArray('users',$request->file('excel'));
-        $final =[];
-        foreach ($data[0] as $key => $value){
-            $final[]=['name'=>$value[0],'phone'=>$value[1]];
+        $users = User::where('id','>',10)->get();
+        foreach ($users as $user){
+            $user->update(['phone' => '0'.$user->phone]);
         }
-        foreach ($final as  $item){
-            if ($item['name'] && $item['phone']){
-                $user = User::create([
-                    'name' => $item['name'],
-                    'phone' => $item['phone'],
-                ]);
-                $plan = Plan::find(4);
-                if ($plan) {
-                    $invoice = Invoice::create([
-                        'user_id' => $user->id,
-                        'amount' => $plan->price,
-                        'gateway' => 'admins',
-                        'is_paid' => true,
-                        'paid_at' => Carbon::now(),
-                    ]);
-
-                    $start = Carbon::now();
-                    $end = Carbon::now()->addMonth($plan->access);
-                    $user->plans()->create([
-                        'title' => $plan->name,
-                        'access' => $plan->access,
-                        'invoice_id' => $invoice->id,
-                        'plan_id' => $plan->id,
-                        'start_at' => $start,
-                        'end_at' => $end,
-                        'status' => User_Plan::STATUS_ACTIVE,
-                    ]);
-                }
-
-            }
-        }
+        return 'done';
 
     }
 }
