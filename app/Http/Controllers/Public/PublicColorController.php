@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Interfaces\Colors\ColorInterface;
 use App\Interfaces\Options\OptionInterface;
 use App\Interfaces\Posts\PostInterface;
+use App\Models\Color;
 use App\Models\Invoice;
 use App\Models\Plan;
 use App\Models\User;
@@ -36,6 +37,16 @@ class PublicColorController extends Controller
     public function colors()
     {
         return $this->color_repository->all();
+    }
+
+    public function first()
+    {
+        return $this->color_repository->first();
+    }
+
+    public function second(Color  $color)
+    {
+        return $this->color_repository->second($color);
     }
 
     public function colors_grouping(Request $request)

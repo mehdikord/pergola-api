@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::get('colors',[\App\Http\Controllers\Public\PublicColorController::class,'colors'])->name('colors');
+Route::get('colors/first',[\App\Http\Controllers\Public\PublicColorController::class,'first'])->name('first');
+Route::get('colors/second/{color}',[\App\Http\Controllers\Public\PublicColorController::class,'second'])->name('second');
 Route::get('colors/grouping',[\App\Http\Controllers\Public\PublicColorController::class,'colors_grouping'])->name('colors_grouping');
 
 Route::get('options',[\App\Http\Controllers\Public\PublicColorController::class,'options'])->name('options');

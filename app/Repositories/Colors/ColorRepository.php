@@ -122,5 +122,50 @@ class ColorRepository implements ColorInterface
        return helper_response_updated([]);
    }
 
+   public function first()
+   {
+       //get from_colors
+       $actives=[];
+       $inactives=[];
+       $from_color = Color::where('is_active',true)->whereHas('from_colors')->pluck('id');
+       $get_from = Color::whereIn('id',$from_color)->get();
+       $others = Color::whereNotIn('id',$from_color)->get();
+       foreach ($get_from as $color) {
+           $actives[] = $color;
+       }
+       foreach ($others as $other) {
+           $inactives[] = $other;
+       }
+       $result = [
+           'actives' => ColorShortResource::collection($actives),
+           'inactives' => ColorShortResource::collection($inactives),
+       ];
+
+       return helper_response_fetch($result);
+   }
+
+   public function second($color)
+   {
+
+       //get from_colors
+       $actives=[];
+       $inactives=[];
+       $from_color = $color->from_colors()->pluck('to_color_id');
+       $get_from = Color::whereIn('id',$from_color)->get();
+       $others = Color::whereNotIn('id',$from_color)->get();
+       foreach ($get_from as $item) {
+           $actives[] = $item;
+       }
+       foreach ($others as $other) {
+           $inactives[] = $other;
+       }
+       $result = [
+           'actives' => ColorShortResource::collection($actives),
+           'inactives' => ColorShortResource::collection($inactives),
+       ];
+
+       return helper_response_fetch($result);
+   }
+
 
 }

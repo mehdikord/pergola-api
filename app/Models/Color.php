@@ -16,4 +16,10 @@ class Color extends Model
     {
         return $this->belongsTo(Color_Group::class, 'color_group_id');
     }
+
+    public function from_colors()
+    {
+        return $this->hasMany(Question::class, 'from_color_id');
+    }
+
 }

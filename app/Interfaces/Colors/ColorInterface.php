@@ -8,6 +8,9 @@ interface ColorInterface
 
     public function all();
 
+    public function first();
+    public function second($color);
+
     public function grouping($request);
 
     public function store($request);
