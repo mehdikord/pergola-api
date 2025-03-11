@@ -31,6 +31,7 @@ class UserIndexResource extends JsonResource
             'name' => $this->name,
             'phone' => $this->phone,
             'age' => $this->age,
+            'default_password' => $this->default_password,
             'image' => $this->image,
             'is_active' => $this->is_active,
             'plan_status' => $plan_status,

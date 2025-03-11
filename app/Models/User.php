@@ -107,4 +107,37 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Invoice::class,'user_id');
     }
+
+    public static function searchable()
+    {
+        $fields = [
+            [
+                'label' => 'نام و نام خانوادگی',
+                'field' => 'name',
+                'type' => 'text'
+            ],
+            [
+                'label' => 'شماره موبایل',
+                'field' => 'phone',
+                'type' => 'text'
+            ],
+            [
+                'label' => 'وضعیت',
+                'field' => 'is_active',
+                'type' => 'select',
+                'items' => [
+                    [
+                        'label' => 'فعال',
+                        'value' => 1
+                    ],
+                    [
+                        'label' => 'غیر فعال',
+                        'value' => 0
+                    ]
+                ]
+            ],
+
+        ];
+        return $fields;
+    }
 }

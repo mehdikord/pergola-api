@@ -68,4 +68,9 @@ class UserController extends Controller
     {
         return $this->repository->add_plan($request,$user);
     }
+
+    public function searchable()
+    {
+        return helper_response_fetch(User::searchable());
+    }
 }

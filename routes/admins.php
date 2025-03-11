@@ -21,6 +21,7 @@ Route::middleware('auth:admins')->group(function () {
         });
     });
     Route::prefix('users')->as('users.')->group(function () {
+        Route::get('searchable',[\App\Http\Controllers\Admins\Users\UserController::class, 'searchable'])->name('searchable');
         Route::get('{user}/activation',[\App\Http\Controllers\Admins\Users\UserController::class, 'activation'])->name('activation');
         Route::post('{user}/plans',[\App\Http\Controllers\Admins\Users\UserController::class, 'add_plan'])->name('add_plan');
     });

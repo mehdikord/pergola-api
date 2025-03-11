@@ -8,13 +8,16 @@ use App\Models\Plan;
 use App\Models\User;
 use App\Models\User_Plan;
 use Illuminate\Support\Carbon;
+use App\Traits\Searching\AdvanceSearchingTrait;
+
 
 class UserRepository implements UserInterface
 {
-
-   public function index()
+    use AdvanceSearchingTrait;
+    public function index()
    {
        $data = User::query();
+       $this->advance_search($data);
        $data->with('plans' , function ($query) {
            $query->where('status', User_Plan::STATUS_ACTIVE)->get();
        });
@@ -28,6 +31,7 @@ class UserRepository implements UserInterface
            'name' => $request->name,
            'phone' => $request->phone,
            'age' => $request->age,
+           'default_password' => $request->default_password,
            'is_active' => true,
 
        ]);
@@ -45,6 +49,8 @@ class UserRepository implements UserInterface
            'name' => $request->name,
            'phone' => $request->phone,
            'age' => $request->age,
+           'default_password' => $request->default_password,
+
        ]);
        return helper_response_fetch(new UserIndexResource($item));
    }

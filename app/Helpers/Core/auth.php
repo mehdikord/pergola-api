@@ -24,23 +24,26 @@ function helper_auth_otp_remove_code($phone): void
 
 function helper_auth_otp_make_code($phone)
 {
-    if (env('APP_ENV') === 'local'){
+    //check default password
+    $user = \App\Models\User::where('phone',$phone)->first();
+    if (!empty($user->default_password)){
+        $code = $user->default_password;
+    }else if (env('APP_ENV') === 'local'){
         $code = 123456;
     }else{
         $code = random_int(100000,999999);
         $message = 'کد ورود شما به پرگولا : '.$code;
         kavenegar_pattern($phone,'jalaliauth',$code);
     }
+
+
     //Send SMS
     \App\Models\Auth_Code::updateorcreate([
         'phone' => $phone],[
         'code' => $code,
         'updated_at' => \Carbon\Carbon::now(),
     ]);
-    if (env('APP_ENV') !== 'local'){
-        //send sms
 
-    }
 
 }
 
