@@ -74,4 +74,8 @@ class ColorController extends Controller
         return $this->repository->change_activation($color);
 
     }
+    public function searchable()
+    {
+        return helper_response_fetch(Color::searchable());
+    }
 }

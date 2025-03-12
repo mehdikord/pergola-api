@@ -37,6 +37,7 @@ Route::middleware('auth:admins')->group(function () {
 
     //Colors
     Route::prefix('colors')->as('colors.')->group(function () {
+        Route::get('searchable',[\App\Http\Controllers\Admins\Colors\ColorController::class, 'searchable'])->name('searchable');
         Route::get('groups/all',[\App\Http\Controllers\Admins\Color_Groups\ColorGroupsController::class, 'all'])->name('all');
 
         Route::apiResource('groups',\App\Http\Controllers\Admins\Color_Groups\ColorGroupsController::class);

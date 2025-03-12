@@ -21,5 +21,33 @@ class Color extends Model
     {
         return $this->hasMany(Question::class, 'from_color_id');
     }
+    public static function searchable()
+    {
+        $fields = [
+            [
+                'label' => 'نام ',
+                'field' => 'name',
+                'type' => 'text'
+            ],
+            [
+                'label' => 'وضعیت',
+                'field' => 'is_active',
+                'type' => 'select',
+                'items' => [
+                    [
+                        'label' => 'فعال',
+                        'value' => 1
+                    ],
+                    [
+                        'label' => 'غیر فعال',
+                        'value' => 0
+                    ]
+                ]
+            ],
+
+        ];
+        return $fields;
+    }
+
 
 }
