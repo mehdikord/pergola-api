@@ -6,13 +6,18 @@ use App\Http\Resources\Colors\ColorShortResource;
 use App\Interfaces\Colors\ColorInterface;
 use App\Models\Color;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\Searching\AdvanceSearchingTrait;
+
 
 class ColorRepository implements ColorInterface
 {
+    use AdvanceSearchingTrait;
 
    public function index()
    {
        $data = Color::query();
+       $this->advance_search($data);
+
        $data->orderBy(request('sort_by'),request('sort_type'));
        return helper_response_fetch(ColorIndexResource::collection($data->paginate(request('per_page')))->resource);
    }
@@ -146,7 +151,6 @@ class ColorRepository implements ColorInterface
 
    public function second($color)
    {
-
        //get from_colors
        $actives=[];
        $inactives=[];
