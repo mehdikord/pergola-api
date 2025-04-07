@@ -99,6 +99,9 @@ Route::middleware('auth:admins')->group(function () {
     });
     Route::apiResource('posts',\App\Http\Controllers\Admins\Posts\PostController::class);
 
+    //Pages
+    Route::apiResource('pages',\App\Http\Controllers\Admins\Pages\PageController::class);
+
 });
 
 ?>

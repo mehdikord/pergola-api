@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use App\Interfaces\Colors\ColorInterface;
 use App\Interfaces\Options\OptionInterface;
+use App\Interfaces\Pages\PageInterface;
 use App\Interfaces\Posts\PostInterface;
 use App\Models\Color;
 use App\Models\Invoice;
@@ -24,13 +25,16 @@ class PublicColorController extends Controller
     protected OptionInterface $option_repository;
     protected PostInterface $post_repository;
 
-    public function __construct(ColorInterface $color, OptionRepository $option,PostInterface $post)
+    protected PageInterface $page_repository;
+
+    public function __construct(ColorInterface $color, OptionRepository $option,PostInterface $post,PageInterface $page)
     {
         $this->middleware('generate_fetch_query_params')->only('posts');
 
         $this->color_repository = $color;
         $this->option_repository = $option;
         $this->post_repository = $post;
+        $this->page_repository = $page;
     }
 
 
@@ -67,13 +71,8 @@ class PublicColorController extends Controller
         return $this->post_repository->show_slug($slug);
     }
 
-    public function import(Request $request){
-
-        $users = User::where('id','>',10)->get();
-        foreach ($users as $user){
-            $user->update(['phone' => '0'.$user->phone]);
-        }
-        return 'done';
-
+    public function page_show($slug)
+    {
+        return $this->page_repository->show_slug($slug);
     }
 }

@@ -19,7 +19,7 @@ class Color extends Model
 
     public function from_colors()
     {
-        return $this->hasMany(Question::class, 'from_color_id');
+        return $this->hasMany(Question::class, 'from_color_id','id');
     }
     public static function searchable()
     {

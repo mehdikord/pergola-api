@@ -26,6 +26,8 @@ Route::group(['prefix' => 'laravel-filemanager','middleware' => ['web', 'cors']]
 Route::prefix('posts')->group(function () {
     Route::get('',[\App\Http\Controllers\Public\PublicColorController::class,'posts'])->name('posts');
     Route::get('/{slug}',[\App\Http\Controllers\Public\PublicColorController::class,'posts_show'])->name('posts_show');
-
 });
-Route::post('import',[\App\Http\Controllers\Public\PublicColorController::class,'import'])->name('import');
+Route::prefix('pages')->group(function () {
+    Route::get('/{slug}',[\App\Http\Controllers\Public\PublicColorController::class,'page_show'])->name('page_show');
+});
+//Route::post('import',[\App\Http\Controllers\Public\PublicColorController::class,'import'])->name('import');
