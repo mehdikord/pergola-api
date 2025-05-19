@@ -25,11 +25,13 @@ class PostIndexResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'post_category_id' => $this->post_category_id,
             'slug' => $this->slug,
             'description' => $this->description,
             'image' => $this->image,
             'is_active' => $this->is_active,
             'views' => $this->views,
+            'category' => new PostCategoryIndexResource($this->whenLoaded('category')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

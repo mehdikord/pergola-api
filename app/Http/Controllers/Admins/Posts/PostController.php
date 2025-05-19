@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admins\Posts;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Posts\PostsCreateRequest;
 use App\Http\Requests\Posts\PostsImageUpdateRequest;
-use App\Http\Requests\Posts\PagesUpdateRequest;
+use App\Http\Requests\Posts\PostsUpdateRequest;
 use App\Interfaces\Posts\PostInterface;
 use App\Models\Color;
 use App\Models\Post;
@@ -48,7 +48,7 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PagesUpdateRequest $request, Post $post)
+    public function update(PostsUpdateRequest $request, Post $post)
     {
         return $this->repository->update($request,$post);
     }

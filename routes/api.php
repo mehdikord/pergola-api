@@ -22,10 +22,12 @@ Route::get('options',[\App\Http\Controllers\Public\PublicColorController::class,
 Route::group(['prefix' => 'laravel-filemanager','middleware' => ['web', 'cors']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
+Route::get('post-categories',[\App\Http\Controllers\Public\PublicColorController::class,'post_categories'])->name('post_categories');
 
 Route::prefix('posts')->group(function () {
-    Route::get('',[\App\Http\Controllers\Public\PublicColorController::class,'posts'])->name('posts');
-    Route::get('/{slug}',[\App\Http\Controllers\Public\PublicColorController::class,'posts_show'])->name('posts_show');
+    Route::get('{category}',[\App\Http\Controllers\Public\PublicColorController::class,'posts'])->name('posts');
+    Route::get('show/{slug}',[\App\Http\Controllers\Public\PublicColorController::class,'posts_show'])->name('posts_show');
+    Route::get('category/{category}',[\App\Http\Controllers\Public\PublicColorController::class,'posts_show_category'])->name('posts_show_category');
 });
 Route::prefix('pages')->group(function () {
     Route::get('/{slug}',[\App\Http\Controllers\Public\PublicColorController::class,'page_show'])->name('page_show');

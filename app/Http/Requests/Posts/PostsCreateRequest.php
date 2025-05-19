@@ -18,6 +18,7 @@ class PostsCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'post_category_id' => 'required|exists:post_categories,id',
             'slug' => 'required|unique:posts,slug',
             'image' => 'nullable|image',
             'title' => 'required|string|max:255',

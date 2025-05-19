@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class PostsUpdateRequest extends FormRequest
+class PostsCategoryCreateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -18,9 +18,7 @@ class PostsUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'post_category_id' => 'required|exists:post_categories,id',
-            'slug' => 'required|unique:posts,slug,'.$this->route('post')->id,
-            'title' => 'required',
+            'name'=>'required|unique:post_categories,name',
         ];
     }
 

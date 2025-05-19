@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Posts;
 
+use App\Models\User_Plan;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -12,7 +13,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $profile
  * @property mixed $config
  */
-class PostShortResource extends JsonResource
+class PostCategoryIndexResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,12 +24,10 @@ class PostShortResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'slug' => $this->slug,
-            'image' => $this->image,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'category' => new PostCategoryIndexResource($this->whenLoaded('category')),
+            'name' => $this->name,
+            'color' => $this->color,
+            'posts_count' => $this->posts_count,
+            'description' => $this->description
         ];
     }
 }

@@ -10,6 +10,7 @@ use App\Interfaces\Posts\PostInterface;
 use App\Models\Color;
 use App\Models\Invoice;
 use App\Models\Plan;
+use App\Models\Post_Category;
 use App\Models\User;
 use App\Models\User_Plan;
 use App\Repositories\Colors\ColorRepository;
@@ -63,9 +64,14 @@ class PublicColorController extends Controller
         return $this->option_repository->all();
     }
 
-    public function posts()
+    public function post_categories()
     {
-        return $this->post_repository->public_index();
+        return $this->post_repository->category_all();
+    }
+
+    public function posts(Post_Category $category)
+    {
+        return $this->post_repository->public_index($category);
     }
     public function posts_show($slug){
         return $this->post_repository->show_slug($slug);
@@ -74,5 +80,10 @@ class PublicColorController extends Controller
     public function page_show($slug)
     {
         return $this->page_repository->show_slug($slug);
+    }
+
+    public function posts_show_category(Post_Category $category)
+    {
+        return $this->post_repository->category_show($category);
     }
 }
