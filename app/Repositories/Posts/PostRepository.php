@@ -23,6 +23,7 @@ class PostRepository implements PostInterface
    {
        $data = Post_Category::query();
        $data->withCount('posts');
+       $data->with('parent');
        $data->orderBy(request('sort_by'),request('sort_type'));
        return helper_response_fetch(PostCategoryIndexResource::collection($data->paginate(request('per_page')))->resource);
    }
@@ -30,8 +31,24 @@ class PostRepository implements PostInterface
    {
        $data = Post_Category::query();
        $data->withCount('posts');
+       $data->with('parent');
        return helper_response_fetch(PostCategoryIndexResource::collection($data->get()));
    }
+
+   public function category_parent_all()
+   {
+       $data = Post_Category::query();
+       $data->withCount('posts');
+       $data->whereNull('parent_id');
+       return helper_response_fetch(PostCategoryIndexResource::collection($data->get()));
+   }
+
+    public function category_children($category)
+    {
+        $data = $category->children();
+        $data->withCount('posts');
+        return helper_response_fetch(PostCategoryIndexResource::collection($data->get()));
+    }
 
     public function store($request)
    {
@@ -51,18 +68,46 @@ class PostRepository implements PostInterface
            'image' => $image,
            'is_active' => true,
        ]);
+       if ($request->has('files')) {
+           $files = $request->input('files');
+           $fileUploads = $request->file('files');
+
+           foreach ($files as $index => $item) {
+               $uploadedFile = $fileUploads[$index]['file'] ?? null;
+
+               if ($uploadedFile && $uploadedFile->isValid()) {
+                   $file_name = $uploadedFile->getClientOriginalName();
+                   $file_size = $uploadedFile->getSize();
+                   $file_path = Storage::put('attachments/posts/files', $uploadedFile, 'public');
+                   $file_url = Storage::url($file_path);
+
+                   $data->files()->create([
+                       'title' => $item['title'],
+                       'file_name' =>  $file_name,
+                       'file_size' => $file_size,
+                       'file_path' => $file_path,
+                       'file_url' => $file_url,
+                   ]);
+               }
+           }
+       }
+
+
        $data->load('category');
        return helper_response_fetch(new PostIndexResource($data));
    }
     public function category_store($request)
    {
-
        $data = Post_Category::create([
            'name' => $request->name,
+           'parent_id' => $request->parent_id,
            'color' => $request->color,
            'description' => $request->description,
-
        ]);
+
+
+
+       $data->load('parent');
        return helper_response_fetch(new PostCategoryIndexResource($data));
    }
 
@@ -77,6 +122,7 @@ class PostRepository implements PostInterface
 
    public function update($request, $item)
    {
+
        $data = $item->update([
            'post_category_id' => $request->post_category_id,
            'title' => $request->title,
@@ -89,12 +135,17 @@ class PostRepository implements PostInterface
 
    public function category_update($request, $item)
    {
-       $data = $item->update([
+       if ($item->parent_id === $request->parent_id) {
+           return helper_response_error('invalid parent category');
+       }
+       $item->update([
+           'parent_id' => $request->parent_id,
            'name' => $request->name,
            'color' => $request->color,
            'description' => $request->description,
        ]);
        $item->withCount('posts');
+       $item->load('parent');
        return helper_response_fetch(new PostCategoryIndexResource($item));
    }
 

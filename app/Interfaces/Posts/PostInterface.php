@@ -7,6 +7,9 @@ interface PostInterface
     public function index();
     public function category_index();
     public function category_all();
+    public function category_parent_all();
+
+    public function category_children($category);
 
     public function store($request);
     public function category_store($request);

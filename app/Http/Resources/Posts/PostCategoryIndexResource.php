@@ -24,10 +24,12 @@ class PostCategoryIndexResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'parent_id' => $this->parent_id,
             'name' => $this->name,
             'color' => $this->color,
             'posts_count' => $this->posts_count,
-            'description' => $this->description
+            'description' => $this->description,
+            'parent' => new PostCategoryIndexResource($this->parent),
         ];
     }
 }

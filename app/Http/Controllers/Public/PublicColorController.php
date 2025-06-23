@@ -69,6 +69,17 @@ class PublicColorController extends Controller
         return $this->post_repository->category_all();
     }
 
+    public function post_categories_parent()
+    {
+        return $this->post_repository->category_parent_all();
+    }
+
+    public function post_categories_children(Post_Category $category)
+    {
+        return $this->post_repository->category_children($category);
+
+    }
+
     public function posts(Post_Category $category)
     {
         return $this->post_repository->public_index($category);

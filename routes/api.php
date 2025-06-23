@@ -23,6 +23,8 @@ Route::group(['prefix' => 'laravel-filemanager','middleware' => ['web', 'cors']]
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 Route::get('post-categories',[\App\Http\Controllers\Public\PublicColorController::class,'post_categories'])->name('post_categories');
+Route::get('post-categories-parent',[\App\Http\Controllers\Public\PublicColorController::class,'post_categories_parent'])->name('post_categories_parent');
+Route::get('post-categories/{category}',[\App\Http\Controllers\Public\PublicColorController::class,'post_categories_children'])->name('post_categories_children');
 
 Route::prefix('posts')->group(function () {
     Route::get('{category}',[\App\Http\Controllers\Public\PublicColorController::class,'posts'])->name('posts');

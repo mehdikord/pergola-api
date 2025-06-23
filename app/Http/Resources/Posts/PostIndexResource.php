@@ -32,6 +32,7 @@ class PostIndexResource extends JsonResource
             'is_active' => $this->is_active,
             'views' => $this->views,
             'category' => new PostCategoryIndexResource($this->whenLoaded('category')),
+            'files' => $this->files,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];
