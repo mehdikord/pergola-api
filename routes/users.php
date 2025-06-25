@@ -16,10 +16,8 @@ Route::group(['middleware' => ['auth:users']], function () {
 
     //Profile
     Route::prefix('profile')->as('profile.')->group(function () {
-
         Route::get('',[\App\Http\Controllers\Users\Profile\ProfileController::class,'index'])->name('index');
         Route::put('',[\App\Http\Controllers\Users\Profile\ProfileController::class,'update'])->name('update');
-
 
     });
 
@@ -28,7 +26,6 @@ Route::group(['middleware' => ['auth:users']], function () {
         Route::get('all',[\App\Http\Controllers\Users\Plans\PlanController::class,'index'])->name('index')->withoutMiddleware('auth:users');
        Route::get('active',[\App\Http\Controllers\Users\Plans\PlanController::class,'active'])->name('active');
        Route::get('own',[\App\Http\Controllers\Users\Plans\PlanController::class,'own'])->name('own');
-
 
     });
 

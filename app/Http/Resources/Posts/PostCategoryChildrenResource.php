@@ -13,7 +13,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $profile
  * @property mixed $config
  */
-class PostCategoryIndexResource extends JsonResource
+class PostCategoryChildrenResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -24,12 +24,11 @@ class PostCategoryIndexResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'parent_id' => $this->parent_id,
             'name' => $this->name,
             'color' => $this->color,
-            'posts_count' => $this->posts->count(),
+            'posts_count' => $this->posts_count,
             'description' => $this->description,
-            'parent' => new PostCategoryIndexResource($this->parent),
+            'children' => PostCategoryIndexResource::collection($this->children),
         ];
     }
 }

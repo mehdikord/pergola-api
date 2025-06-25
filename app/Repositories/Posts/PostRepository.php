@@ -1,5 +1,6 @@
 <?php
 namespace App\Repositories\Posts;
+use App\Http\Resources\Posts\PostCategoryChildrenResource;
 use App\Http\Resources\Posts\PostCategoryIndexResource;
 use App\Http\Resources\Posts\PostIndexResource;
 use App\Interfaces\Posts\PostInterface;
@@ -45,9 +46,9 @@ class PostRepository implements PostInterface
 
     public function category_children($category)
     {
-        $data = $category->children();
-        $data->withCount('posts');
-        return helper_response_fetch(PostCategoryIndexResource::collection($data->get()));
+        $category->load('children');
+        $category->withCount('children');
+        return helper_response_fetch(new PostCategoryChildrenResource($category));
     }
 
     public function store($request)
@@ -78,7 +79,7 @@ class PostRepository implements PostInterface
                if ($uploadedFile && $uploadedFile->isValid()) {
                    $file_name = $uploadedFile->getClientOriginalName();
                    $file_size = $uploadedFile->getSize();
-                   $file_path = Storage::put('attachments/posts/files', $uploadedFile, 'public');
+                   $file_path = Storage::put('public/attachments/posts/files', $uploadedFile, 'public');
                    $file_url = Storage::url($file_path);
 
                    $data->files()->create([
@@ -135,7 +136,7 @@ class PostRepository implements PostInterface
 
    public function category_update($request, $item)
    {
-       if ($item->parent_id === $request->parent_id) {
+       if (!empty($request->parent_id) && $item->id === $request->parent_id) {
            return helper_response_error('invalid parent category');
        }
        $item->update([
