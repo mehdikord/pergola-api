@@ -183,6 +183,33 @@ class PostRepository implements PostInterface
         return helper_response_fetch(new PostIndexResource($item));
     }
 
+    public function remove_file($item)
+    {
+        Storage::delete($item->file_path);
+        $item->delete();
+        return helper_response_deleted();
+    }
+
+    public function add_file($item, $request)
+    {
+        if ($request->hasFile('file')) {
+            $file_name = $request->file('file')->getClientOriginalName();
+            $file_size = $request->file('file')->getSize();
+            $file_path = Storage::put('public/attachments/posts/files', $request->file('file'), 'public');
+            $file_url = Storage::url($file_path);
+
+            $item->files()->create([
+                'title' => $request->title,
+                'file_name' =>  $file_name,
+                'file_size' => $file_size,
+                'file_path' => $file_path,
+                'file_url' => $file_url,
+            ]);
+        }
+        return helper_response_fetch(new PostIndexResource($item));
+
+    }
+
     public function public_index($category)
     {
         $data = $category->posts();

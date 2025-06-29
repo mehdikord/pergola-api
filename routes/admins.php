@@ -97,9 +97,11 @@ Route::middleware('auth:admins')->group(function () {
         Route::get('categories/all',[\App\Http\Controllers\Admins\Posts\PostCategoryController::class,'all'])->name('all');
 
         Route::apiResource('categories',\App\Http\Controllers\Admins\Posts\PostCategoryController::class);
+        Route::get('files/remove/{file}',[\App\Http\Controllers\Admins\Posts\PostController::class, 'remove_file'])->name('remove_file');
 
         Route::get('{post}/activation',[\App\Http\Controllers\Admins\Posts\PostController::class, 'activation'])->name('activation');
         Route::post('{post}/image',[\App\Http\Controllers\Admins\Posts\PostController::class, 'update_image'])->name('update_image');
+        Route::post('{post}/file',[\App\Http\Controllers\Admins\Posts\PostController::class, 'add_file'])->name('add_file');
     });
     Route::apiResource('posts',\App\Http\Controllers\Admins\Posts\PostController::class);
 

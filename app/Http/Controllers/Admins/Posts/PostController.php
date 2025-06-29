@@ -9,6 +9,8 @@ use App\Http\Requests\Posts\PostsUpdateRequest;
 use App\Interfaces\Posts\PostInterface;
 use App\Models\Color;
 use App\Models\Post;
+use App\Models\Post_File;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -50,13 +52,27 @@ class PostController extends Controller
      */
     public function update(PostsUpdateRequest $request, Post $post)
     {
-        return $this->repository->update($request,$post);
+        return $this->repository->update($request, $post);
     }
 
-    public function update_image(PostsImageUpdateRequest $request,Color $color)
+    public function update_image(PostsImageUpdateRequest $request, Color $color)
     {
-        return $this->repository->update_image($request,$color);
+        return $this->repository->update_image($request, $color);
     }
+
+    public function remove_file(Post_File $file)
+    {
+        return $this->repository->remove_file($file);
+
+    }
+
+    public function add_file(Post $post, Request $request)
+    {
+        return $this->repository->add_file($post, $request);
+
+
+    }
+
     /**
      * Remove the specified resource from storage.
      */

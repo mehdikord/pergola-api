@@ -26,6 +26,8 @@ interface PostInterface
     public function change_activation($item);
 
     public function update_image($request,$item);
+    public function remove_file($item);
+    public function add_file($item,$request);
 
     public function public_index($category);
 
