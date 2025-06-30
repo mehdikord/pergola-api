@@ -15,6 +15,9 @@ class PostRepository implements PostInterface
    public function index()
    {
        $data = Post::query();
+       if (request()->filled('search') && request()->search['title'] ) {
+           $data->where('title', 'like', '%' . request()->search['title'] . '%');
+       }
        $data->with('category');
        $data->orderBy(request('sort_by'),request('sort_type'));
        return helper_response_fetch(PostIndexResource::collection($data->paginate(request('per_page')))->resource);
