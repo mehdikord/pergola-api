@@ -6,6 +6,7 @@ use App\Http\Resources\Posts\PostIndexResource;
 use App\Interfaces\Posts\PostInterface;
 use App\Models\Post;
 use App\Models\Post_Category;
+use App\Models\User_Plan;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -215,6 +216,9 @@ class PostRepository implements PostInterface
 
     public function public_index($category)
     {
+        if (!auth('users')->user()->plans()->where('status',User_Plan::STATUS_ACTIVE)->exists()) {
+            return helper_response_error('No active plans for this user');
+        }
         $data = $category->posts();
         $data->where('is_active', true);
         $data->orderBy(request('sort_by'),request('sort_type'));
@@ -223,6 +227,9 @@ class PostRepository implements PostInterface
 
     public function show_slug($item)
     {
+        if (!auth('users')->user()->plans()->where('status',User_Plan::STATUS_ACTIVE)->exists()) {
+            return helper_response_error('No active plans for this user');
+        }
         $data = Post::query()->where('slug', $item)->firstOrFail();
         return helper_response_fetch(new PostIndexResource($data));
     }
