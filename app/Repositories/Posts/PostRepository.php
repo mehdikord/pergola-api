@@ -221,7 +221,7 @@ class PostRepository implements PostInterface
         }
         $data = $category->posts();
         $data->where('is_active', true);
-        $data->orderBy(request('sort_by'),request('sort_type'));
+
         return helper_response_fetch(PostIndexResource::collection($data->get()));
     }
 
