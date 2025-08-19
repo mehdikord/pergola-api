@@ -50,6 +50,7 @@ class QuestionIndexResource extends JsonResource
             'to_color' => new ColorShortResource($this->to_color),
             'answers' => QuestionAnswerIndexResource::collection($this->answers),
             'is_active' => $this->is_active,
+            'created_at' => $this->created_at
         ];
     }
 }

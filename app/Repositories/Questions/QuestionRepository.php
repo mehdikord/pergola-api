@@ -162,6 +162,7 @@ class QuestionRepository implements QuestionInterface
        $data->orderByDesc('id');
        return helper_response_fetch(QuestionUsersIndexResource::collection($data->get()));
    }
+
    public function users_destroy($item)
    {
        if ($item->user_id != auth('users')->id()){
@@ -170,5 +171,6 @@ class QuestionRepository implements QuestionInterface
        $item->delete();
        return helper_response_deleted();
    }
+   
 
 }
